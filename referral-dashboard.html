@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REI Grove — Referral Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root {
+  --forest: #26463D;
+  --grove: #57823C;
+  --deep: #1E4D37;
+  --light-green: #EAF0E8;
+  --mint: #9FE1CB;
+  --sage: #C0DD97;
+  --bg: #F5F7F5;
+  --text: #4A5568;
+  --muted: #718096;
+  --border: #E2E8E0;
+  --white: #FFFFFF;
+  --gradient-dark: radial-gradient(circle at 16% 12%, rgba(159,225,203,.16), transparent 32%), radial-gradient(circle at 88% 18%, rgba(192,221,151,.10), transparent 30%), linear-gradient(135deg, #26463D 0%, #1E4D37 100%);
+  --gradient-hero-light: radial-gradient(circle at 12% 10%, rgba(159,225,203,.34), transparent 34%), radial-gradient(circle at 88% 18%, rgba(192,221,151,.26), transparent 28%), linear-gradient(135deg, #FFFFFF 0%, #F5F7F5 48%, #EAF0E8 100%);
+  --gradient-soft-card: linear-gradient(145deg, rgba(255,255,255,.96), rgba(245,247,245,.86));
+  --gradient-dark-card: linear-gradient(145deg, rgba(30,77,55,.98), rgba(38,70,61,.92));
+  --success: #2F855A; --success-bg: #EAF7EF;
+  --warning: #B7791F; --warning-bg: #FFF8E5;
+  --error: #C53030; --error-bg: #FFF0F0;
+  --font-sans: 'Poppins', sans-serif;
+  --h2: 600 clamp(30px,3.2vw,44px)/1.12 var(--font-sans);
+  --body: 400 16px/1.7 var(--font-sans);
+  --small: 400 13px/1.55 var(--font-sans);
+  --label: 700 11px/1 var(--font-sans);
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px; --space-16: 64px;
+  --grove-50: #F2F8EE; --grove-100: #E3F0DA; --grove-500: #57823C; --grove-600: #4A6E32;
+  --forest-100: #E2ECE7; --forest-600: #365A50; --forest-700: #26463D;
+  --mint-100: #D7F6EC;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+/* ── HEADER ── */
+.site-header {
+  height: 68px; padding: 0 var(--space-8);
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,.96); backdrop-filter: blur(14px);
+  position: sticky; top: 0; z-index: 200;
+}
+.logo-pair { display: inline-flex; align-items: center; gap: 10px; line-height: 0; text-decoration: none; flex-shrink: 0; }
+.logo-pair svg { display: block; width: auto; flex: 0 0 auto; }
+.logo-svg { max-width: 100%; height: auto; }
+.rei-logo { height: 36px; }
+.innago-logo { height: 24px; }
+.logo-by { font-size: 11px; font-weight: 500; color: var(--muted); position: relative; top: 1px; }
+.header-right { display: flex; align-items: center; gap: var(--space-4); }
+.avatar-chip { display: flex; align-items: center; gap: var(--space-2); font: 500 13px/1 var(--font-sans); color: var(--forest); }
+.avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--light-green); border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; font: 600 12px/1 var(--font-sans); color: var(--forest); }
+
+/* ── SCENARIO BAR ── */
+.scenario-bar {
+  background: var(--gradient-dark); padding: 10px var(--space-8);
+  display: flex; align-items: center; gap: var(--space-2);
+  font: 400 12px/1 var(--font-sans); color: rgba(255,255,255,.65);
+  overflow-x: auto; white-space: nowrap; gap: var(--space-2);
+}
+.scenario-bar-label { font-weight: 600; color: var(--mint); margin-right: var(--space-2); flex-shrink: 0; }
+.scenario-bar::before { content:""; position:absolute; inset:0; background-image:radial-gradient(circle, rgba(159,225,203,.08) 1px, transparent 1px); background-size:24px 24px; pointer-events:none; }
+.scenario-bar { position: relative; }
+.scenario-btn {
+  position: relative; padding: 5px 14px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.07);
+  color: rgba(255,255,255,.7); font: 500 11px/1 var(--font-sans);
+  cursor: pointer; transition: background .2s, color .2s, border-color .2s; flex-shrink: 0;
+}
+.scenario-btn:hover { background: rgba(255,255,255,.14); color: white; border-color: rgba(255,255,255,.3); }
+.scenario-btn.active { background: var(--mint); border-color: var(--mint); color: var(--forest); font-weight: 600; }
+
+/* ── LAYOUT ── */
+.layout { display: flex; min-height: calc(100vh - 116px); }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 216px; flex-shrink: 0;
+  background: var(--white); border-right: 1px solid var(--border);
+  padding: var(--space-6) 0;
+  position: sticky; top: 116px; height: calc(100vh - 116px); overflow-y: auto;
+}
+.sidebar-section { padding: 0 var(--space-4); margin-bottom: var(--space-2); }
+.sidebar-eyebrow { font: 700 10px/1 var(--font-sans); color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; padding: var(--space-1) var(--space-3) var(--space-2); margin-bottom: var(--space-1); }
+.nav-item {
+  display: flex; align-items: center; gap: var(--space-2); padding: 10px var(--space-3);
+  border-radius: 9px; color: var(--text); text-decoration: none; font: 500 13px/1 var(--font-sans);
+  cursor: pointer; transition: background .15s, color .15s; margin-bottom: 2px; border: none; background: none; width: 100%; text-align: left;
+}
+.nav-item:hover { background: var(--bg); }
+.nav-item.active { background: var(--light-green); color: var(--forest); font-weight: 600; }
+.nav-item .nav-icon { flex-shrink: 0; opacity: .55; width: 18px; height: 18px; }
+.nav-item.active .nav-icon { opacity: 1; }
+.nav-divider { border: none; border-top: 1px solid var(--border); margin: var(--space-3) var(--space-4); }
+
+/* ── MAIN ── */
+.main { flex: 1; padding: var(--space-8) var(--space-8); max-width: 1000px; }
+@media (max-width: 900px) { .sidebar { display: none; } .main { padding: var(--space-6) var(--space-5); } }
+
+/* ── PAGE HEADER ── */
+.page-header { margin-bottom: var(--space-6); }
+.page-header h1 { font: 600 22px/1.2 var(--font-sans); color: var(--forest); margin-bottom: var(--space-1); letter-spacing: -.02em; }
+.page-header p { font: 400 13px/1.55 var(--font-sans); color: var(--muted); }
+
+/* ── SECTION LABEL ── */
+.section-label {
+  display: flex; align-items: center; gap: 10px;
+  font: 700 11px/1 var(--font-sans); color: var(--grove);
+  letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: var(--space-4);
+}
+.section-label::before { content: ""; width: 24px; height: 2px; background: currentColor; }
+.dark .section-label { color: var(--mint); }
+
+/* ── DISCOUNT HERO CARD ── */
+.discount-hero {
+  background: var(--gradient-dark); border-radius: 18px;
+  padding: var(--space-8) var(--space-8); margin-bottom: var(--space-6);
+  position: relative; overflow: hidden;
+}
+.discount-hero::before {
+  content: ""; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(159,225,203,.10) 1px, transparent 1px);
+  background-size: 28px 28px; pointer-events: none;
+}
+.dh-inner { position: relative; display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-6); flex-wrap: wrap; }
+.dh-left { flex: 1; min-width: 220px; }
+.dh-eyebrow { font: 700 10px/1 var(--font-sans); letter-spacing: 1.2px; text-transform: uppercase; color: var(--mint); margin-bottom: var(--space-3); display: flex; align-items: center; gap: 8px; }
+.dh-amount { font: 600 52px/1 var(--font-sans); color: white; letter-spacing: -.04em; margin-bottom: var(--space-2); line-height: .95; }
+.dh-amount sub { font-size: 18px; font-weight: 400; color: rgba(255,255,255,.5); vertical-align: baseline; letter-spacing: 0; }
+.dh-desc { font: 400 13px/1.6 var(--font-sans); color: rgba(255,255,255,.65); max-width: 380px; margin-bottom: var(--space-5); }
+.dh-desc strong { color: var(--mint); font-weight: 600; }
+
+/* progress */
+.dh-progress-header { display: flex; justify-content: space-between; font: 400 10px/1 var(--font-sans); color: rgba(255,255,255,.4); margin-bottom: var(--space-2); }
+.dh-track { height: 7px; background: rgba(255,255,255,.10); border-radius: 99px; overflow: hidden; margin-bottom: var(--space-3); }
+.dh-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--mint), var(--sage)); transition: width .6s cubic-bezier(.4,0,.2,1); }
+.dh-milestones { display: flex; justify-content: space-between; }
+.ms { font: 400 10px/1 var(--font-sans); color: rgba(255,255,255,.35); }
+.ms.hit { color: var(--mint); font-weight: 600; }
+
+/* billing card */
+.dh-right { display: flex; flex-direction: column; gap: var(--space-3); align-items: stretch; min-width: 168px; }
+.billing-card { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.11); border-radius: 14px; padding: var(--space-4) var(--space-5); }
+.bc-label { font: 500 10px/1 var(--font-sans); color: rgba(255,255,255,.4); letter-spacing: .06em; text-transform: uppercase; margin-bottom: var(--space-2); }
+.bc-price { font: 700 28px/1 var(--font-sans); color: white; letter-spacing: -.03em; }
+.bc-price span { font-size: 13px; font-weight: 400; color: rgba(255,255,255,.4); }
+.bc-was { font: 400 11px/1 var(--font-sans); color: rgba(255,255,255,.3); text-decoration: line-through; margin-top: var(--space-1); }
+.bc-save { font: 600 11px/1 var(--font-sans); color: var(--mint); margin-top: var(--space-1); }
+
+.queue-pill {
+  display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px;
+  border-radius: 10px; background: rgba(159,225,203,.12); border: 1px solid rgba(159,225,203,.25);
+  color: var(--mint); font: 600 11px/1.3 var(--font-sans);
+}
+
+/* ── CARD ── */
+.card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+  padding: var(--space-6); box-shadow: 0 4px 16px rgba(38,70,61,.05); margin-bottom: var(--space-5);
+  transition: border-color .2s, box-shadow .2s;
+}
+.card:hover { transform: translateY(-2px); border-color: rgba(87,130,60,.45); box-shadow: 0 18px 46px rgba(38,70,61,.12); }
+.card-header { margin-bottom: var(--space-5); }
+.card-title-row { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-1); }
+.card-title { font: 600 14px/1.2 var(--font-sans); color: var(--forest); }
+.card-subtitle { font: 400 12px/1.5 var(--font-sans); color: var(--muted); }
+.icon-well { width: 32px; height: 32px; border-radius: 9px; background: var(--light-green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* ── REFERRAL LINK ── */
+.link-row { display: flex; gap: var(--space-2); margin-bottom: var(--space-4); }
+.link-field {
+  flex: 1; height: 44px; padding: 0 var(--space-4); border: 1.5px solid var(--border);
+  border-radius: 10px; background: var(--bg); color: var(--forest);
+  font: 500 13px/1 var(--font-sans); outline: none;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  min-height: 44px; padding: 0 var(--space-5); border-radius: 10px; border: 0;
+  background: var(--grove); color: var(--white); font: 600 13px/1 var(--font-sans);
+  box-shadow: 0 10px 24px rgba(87,130,60,.24); cursor: pointer;
+  transition: background .2s, transform .2s, box-shadow .2s; white-space: nowrap;
+}
+.btn-primary:hover { background: var(--grove-600); transform: translateY(-1px); box-shadow: 0 16px 34px rgba(87,130,60,.32); }
+.btn-primary:focus-visible { outline: 3px solid rgba(87,130,60,.2); outline-offset: 3px; }
+.btn-primary.done { background: var(--success); }
+.share-row { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.share-label { font: 500 11px/1 var(--font-sans); color: var(--muted); }
+.share-btn {
+  display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px;
+  border-radius: 8px; border: 1.5px solid var(--border); background: var(--white);
+  color: var(--text); font: 500 12px/1 var(--font-sans); cursor: pointer;
+  transition: border-color .2s, background .2s, color .2s;
+}
+.share-btn:hover { border-color: rgba(87,130,60,.3); background: var(--light-green); color: var(--forest); }
+
+/* ── STATS ROW ── */
+.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-bottom: var(--space-5); }
+@media (max-width: 680px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 460px) { .stats-row { grid-template-columns: 1fr; } }
+.stat-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: var(--space-5) var(--space-5); box-shadow: 0 2px 8px rgba(38,70,61,.04); }
+.stat-label { font: 500 11px/1 var(--font-sans); color: var(--muted); letter-spacing: .04em; text-transform: uppercase; margin-bottom: var(--space-2); }
+.stat-value { font: 700 28px/1 var(--font-sans); color: var(--forest); letter-spacing: -.03em; margin-bottom: var(--space-1); }
+.stat-sub { font: 400 11px/1.4 var(--font-sans); color: var(--muted); }
+.stat-sub.accent { color: var(--grove); font-weight: 600; }
+
+/* ── REFERRAL TABLE ── */
+.table-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-4); flex-wrap: wrap; gap: var(--space-3); }
+.filter-chips { display: flex; gap: var(--space-1); }
+.chip {
+  padding: 6px 13px; border-radius: 8px; border: 1.5px solid var(--border);
+  background: var(--white); color: var(--muted); font: 500 12px/1 var(--font-sans);
+  cursor: pointer; transition: all .15s;
+}
+.chip.active { background: var(--light-green); border-color: rgba(87,130,60,.28); color: var(--forest); font-weight: 600; }
+.chip:hover:not(.active) { background: var(--bg); }
+
+table.ref-table { width: 100%; border-collapse: collapse; }
+table.ref-table th { font: 600 10px/1 var(--font-sans); color: var(--muted); text-align: left; padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--border); letter-spacing: .06em; text-transform: uppercase; }
+table.ref-table td { padding: var(--space-4) var(--space-3); border-bottom: 1px solid var(--bg); font: 400 13px/1.4 var(--font-sans); vertical-align: middle; }
+table.ref-table tbody tr:last-child td { border-bottom: none; }
+table.ref-table tbody tr { transition: background .12s; }
+table.ref-table tbody tr:hover { background: var(--bg); }
+.ref-name { font-weight: 600; color: var(--forest); }
+.ref-date { font: 400 12px/1 var(--font-sans); color: var(--muted); }
+
+/* Badges */
+.badge { display: inline-flex; align-items: center; gap: var(--space-1); padding: 4px 10px; border-radius: 999px; font: 600 11px/1 var(--font-sans); white-space: nowrap; }
+.badge-confirmed { background: var(--success-bg); color: var(--success); }
+.badge-active    { background: var(--mint-100); color: #1a6b52; }
+.badge-cancelled { background: var(--error-bg); color: var(--error); }
+.badge-expired { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+
+/* Mini progress */
+.prog { display: flex; align-items: center; gap: var(--space-2); }
+.prog-track { width: 72px; height: 5px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.prog-fill { height: 100%; border-radius: 99px; background: var(--grove); }
+.prog-fill.done { background: var(--success); }
+.prog-fill.cancel { background: var(--error); }
+.prog-label { font: 400 11px/1 var(--font-sans); color: var(--muted); white-space: nowrap; }
+
+/* Voucher tag */
+.voucher-tag { display: inline-flex; align-items: center; gap: 4px; padding: 4px 9px; border-radius: 7px; background: var(--light-green); color: var(--forest); font: 600 11px/1 var(--font-sans); }
+.voucher-tag.queued { background: rgba(159,225,203,.15); color: var(--mint); border: 1px dashed rgba(159,225,203,.4); }
+
+/* Empty state */
+.empty-state { text-align: center; padding: 52px var(--space-6); }
+.empty-icon { width: 52px; height: 52px; background: var(--light-green); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-5); }
+.empty-title { font: 600 15px/1.3 var(--font-sans); color: var(--forest); margin-bottom: var(--space-2); }
+.empty-desc { font: 400 13px/1.55 var(--font-sans); color: var(--muted); max-width: 320px; margin: 0 auto var(--space-5); }
+
+/* ── TIMELINE ── */
+.tinted { background: var(--bg); border-radius: 14px; padding: var(--space-6); margin-bottom: var(--space-5); border: 1px solid var(--border); }
+.timeline-scroll { display: flex; overflow-x: auto; padding-bottom: var(--space-2); margin-top: var(--space-5); gap: 0; }
+.tm-col { flex-shrink: 0; width: 60px; text-align: center; }
+.tm-block { height: 40px; margin: 0 3px var(--space-2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font: 700 9px/1 var(--font-sans); letter-spacing: .04em; cursor: default; transition: transform .15s; }
+.tm-block:hover { transform: scale(1.07); }
+.tm-free  { background: linear-gradient(135deg, #9FE1CB, #C0DD97); color: var(--forest); }
+.tm-half  { background: var(--light-green); color: var(--grove); border: 1.5px solid rgba(87,130,60,.22); }
+.tm-full  { background: var(--white); color: var(--muted); border: 1.5px solid var(--border); }
+.tm-queued{ background: rgba(159,225,203,.12); color: var(--mint); border: 1.5px dashed rgba(159,225,203,.38); }
+.tm-label { font: 400 10px/1 var(--font-sans); color: var(--muted); }
+.tm-label.now { color: var(--grove); font-weight: 700; }
+.tl-legend { display: flex; gap: var(--space-6); margin-top: var(--space-4); flex-wrap: wrap; }
+.tl-leg { display: flex; align-items: center; gap: 7px; font: 400 11px/1 var(--font-sans); color: var(--muted); }
+.tl-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+/* ── HOW IT WORKS ── */
+.how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-bottom: var(--space-5); }
+@media (max-width: 680px) { .how-grid { grid-template-columns: 1fr; } }
+.how-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: var(--space-6);
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+  position: relative; overflow: hidden;
+}
+.how-card::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(120deg, transparent 0%, rgba(159,225,203,.12) 45%, transparent 72%);
+  opacity: 0; transform: translateX(-24%);
+  transition: opacity .25s ease, transform .35s ease;
+  pointer-events: none;
+}
+.how-card:hover::before { opacity: 1; transform: translateX(18%); }
+.how-card:hover { border-color: rgba(87,130,60,.3); box-shadow: 0 10px 28px rgba(38,70,61,.08); transform: translateY(-2px); }
+.how-num { width: 32px; height: 32px; border-radius: 10px; background: var(--light-green); display: flex; align-items: center; justify-content: center; font: 700 14px/1 var(--font-sans); color: var(--forest); margin-bottom: var(--space-4); }
+.how-title { font: 600 13px/1.3 var(--font-sans); color: var(--forest); margin-bottom: var(--space-2); }
+.how-desc { font: 400 12px/1.6 var(--font-sans); color: var(--muted); }
+
+/* ── FAQ ── */
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-item:last-child { border-bottom: none; }
+.faq-q { width: 100%; text-align: left; padding: var(--space-4) 0; background: none; border: none; font: 500 13px/1.4 var(--font-sans); color: var(--forest); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: var(--space-3); }
+.faq-q:hover { color: var(--grove); }
+.faq-chevron { flex-shrink: 0; transition: transform .25s; }
+.faq-q.open .faq-chevron { transform: rotate(180deg); }
+.faq-a { padding: 0 0 var(--space-4); font: 400 13px/1.65 var(--font-sans); color: var(--muted); display: none; }
+.faq-a.open { display: block; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: var(--space-6); right: var(--space-6); z-index: 9999;
+  background: var(--forest); color: white; padding: 11px var(--space-5); border-radius: 10px;
+  font: 500 13px/1 var(--font-sans); display: flex; align-items: center; gap: var(--space-2);
+  box-shadow: 0 8px 24px rgba(38,70,61,.28); transform: translateY(80px); opacity: 0;
+  transition: transform .3s cubic-bezier(.4,0,.2,1), opacity .3s;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ── DISABLED ── */
+.is-disabled { opacity: .5; cursor: not-allowed; }
+
+/* ── VIEW TOGGLE ── */
+.view-hidden { display: none !important; }
+
+/* ── FOOTER ── */
+.site-footer {
+  background: var(--gradient-dark);
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding: 40px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.site-footer::before {
+  content: ""; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(159,225,203,.08) 1px, transparent 1px);
+  background-size: 28px 28px; pointer-events: none;
+}
+.footer-inner {
+  position: relative; max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 20px;
+}
+.footer-logo .rei-logo { filter: brightness(0) invert(1); opacity: .9; }
+.footer-logo .innago-logo { filter: brightness(0) invert(1); opacity: .7; }
+.footer-logo .logo-by { color: rgba(255,255,255,.4); }
+.footer-copy { font: 400 13px/1.55 var(--font-sans); color: rgba(255,255,255,.45); }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font: 500 13px/1 var(--font-sans); color: rgba(255,255,255,.55); text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: var(--mint); }
+@media (max-width: 760px) {
+  .site-footer { padding: 32px 20px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header class="site-header">
+  <a href="#" class="logo-pair" aria-label="REI Grove by Innago home">
+    <!-- REI Grove logo -->
+    <svg class="logo-svg rei-logo" role="img" aria-label="REI Grove" focusable="false" width="130" height="40" viewBox="0 0 250 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M87.2593 52.4306L80.5095 40.7008H76.8382V52.4306H72.0283V23.1074H82.1529C84.4038 23.1074 86.3084 23.5007 87.8697 24.2901C89.4309 25.0766 90.5989 26.1331 91.3707 27.4537C92.1426 28.7772 92.5299 30.2533 92.5299 31.885C92.5299 33.7984 91.9753 35.5357 90.863 37.0941C89.7508 38.6553 88.0428 39.7177 85.7362 40.2782L92.9936 52.4306H87.2563H87.2593ZM76.8382 36.8622H82.1559C83.9548 36.8622 85.3136 36.4132 86.2263 35.5123C87.1389 34.6113 87.5967 33.4022 87.5967 31.885C87.5967 30.3678 87.1477 29.1793 86.2468 28.3194C85.3459 27.4625 83.9812 27.0311 82.1529 27.0311H76.8353V36.8622H76.8382Z" fill="#26463D"/>
+      <path d="M101.815 26.9901V35.5975H111.939V39.5211H101.815V48.5071H113.207V52.4307H97.0049V23.0664H113.207V26.9901H101.815Z" fill="#26463D"/>
+      <path d="M122.235 23.1074V52.4306H117.425V23.1074H122.235Z" fill="#26463D"/>
+      <path d="M156.201 31.5423C155.441 30.0809 154.387 28.9745 153.037 28.2291C151.687 27.4837 150.126 27.111 148.354 27.111C146.414 27.111 144.682 27.5482 143.165 28.4198C141.645 29.2914 140.456 30.5299 139.599 32.1322C138.743 33.7345 138.314 35.5922 138.314 37.7022C138.314 39.8122 138.743 41.6757 139.599 43.2927C140.456 44.9097 141.645 46.154 143.165 47.0256C144.685 47.8972 146.414 48.3345 148.354 48.3345C150.968 48.3345 153.093 47.6038 154.725 46.1394C156.356 44.6779 157.354 42.6941 157.721 40.1908H146.71V36.3522H162.868V40.1057C162.557 42.383 161.75 44.4813 160.441 46.3918C159.133 48.3052 157.43 49.8312 155.335 50.9698C153.24 52.1085 150.913 52.6778 148.354 52.6778C145.598 52.6778 143.08 52.0381 140.803 50.7585C138.525 49.479 136.718 47.7006 135.382 45.4204C134.047 43.1431 133.378 40.5694 133.378 37.6993C133.378 34.8292 134.047 32.2554 135.382 29.9781C136.718 27.7008 138.531 25.9224 140.826 24.64C143.118 23.3605 145.63 22.7207 148.356 22.7207C151.479 22.7207 154.255 23.4867 156.688 25.0215C159.121 26.5534 160.888 28.728 161.982 31.5394H156.201V31.5423Z" fill="#26463D"/>
+      <path d="M173.518 29.7966C174.686 29.1363 176.071 28.8047 177.673 28.8047V33.7819H176.45C174.565 33.7819 173.136 34.2602 172.168 35.2169C171.196 36.1736 170.712 37.8317 170.712 40.1941V52.4288H165.902V29.1803H170.712V32.5552C171.414 31.3725 172.35 30.454 173.518 29.7907V29.7966Z" fill="#26463D"/>
+      <path d="M184.552 51.3136C182.78 50.3158 181.389 48.9072 180.376 47.0936C179.364 45.2799 178.856 43.1758 178.856 40.7869C178.856 38.3981 179.375 36.3292 180.417 34.5009C181.456 32.6726 182.879 31.2669 184.678 30.2808C186.477 29.2977 188.49 28.8047 190.712 28.8047C192.934 28.8047 194.944 29.2977 196.746 30.2808C198.545 31.2669 199.965 32.6726 201.007 34.5009C202.046 36.3292 202.568 38.4245 202.568 40.7869C202.568 43.1494 202.034 45.2447 200.966 47.073C199.898 48.9013 198.442 50.3158 196.599 51.3136C194.756 52.3114 192.725 52.8103 190.504 52.8103C188.282 52.8103 186.328 52.3114 184.555 51.3136H184.552ZM193.981 47.748C195.064 47.1581 195.945 46.2718 196.62 45.0892C197.294 43.9065 197.632 42.4744 197.632 40.7869C197.632 39.0995 197.309 37.6733 196.661 36.5053C196.012 35.3373 195.155 34.4598 194.087 33.867C193.019 33.2771 191.865 32.9807 190.627 32.9807C189.389 32.9807 188.244 33.2771 187.187 33.867C186.131 34.4569 185.295 35.3373 184.678 36.5053C184.059 37.6733 183.751 39.0995 183.751 40.7869C183.751 43.2902 184.391 45.2242 185.67 46.5888C186.95 47.9534 188.561 48.6343 190.501 48.6343C191.739 48.6343 192.898 48.3378 193.981 47.748Z" fill="#26463D"/>
+      <path d="M214.632 48.123L221.215 29.1797H226.321L217.461 52.4281H211.724L202.905 29.1797H208.053L214.635 48.123H214.632Z" fill="#26463D"/>
+      <path d="M249.4 42.5996H231.636C231.777 44.4572 232.467 45.948 233.702 47.072C234.941 48.196 236.458 48.7595 238.26 48.7595C240.848 48.7595 242.677 47.6766 243.745 45.5108H248.933C248.229 47.6501 246.955 49.3992 245.115 50.7638C243.272 52.1285 240.986 52.8093 238.26 52.8093C236.038 52.8093 234.049 52.3104 232.291 51.3126C230.533 50.3148 229.154 48.9062 228.156 47.0926C227.158 45.2789 226.659 43.1748 226.659 40.786C226.659 38.3971 227.143 36.293 228.115 34.4794C229.086 32.6657 230.448 31.2659 232.209 30.2828C233.967 29.2997 235.986 28.8066 238.263 28.8066C240.54 28.8066 242.412 29.285 244.126 30.2417C245.84 31.1984 247.178 32.5395 248.135 34.271C249.092 35.9995 249.57 37.9922 249.57 40.2401C249.57 41.1117 249.514 41.9011 249.4 42.6025V42.5996ZM244.546 38.717C244.517 36.9445 243.886 35.5241 242.647 34.4559C241.409 33.3877 239.877 32.8535 238.049 32.8535C236.388 32.8535 234.967 33.3818 233.788 34.4353C232.605 35.4889 231.903 36.9181 231.677 38.717H244.546Z" fill="#26463D"/>
+      <path d="M17.2202 62.6922H13.2349C12.736 62.6922 12.3311 62.2872 12.3311 61.7883V36.2655C12.3311 36.0043 12.4455 35.7548 12.6421 35.5846L22.9546 26.5987C23.5004 26.1233 24.3544 26.449 24.4454 27.168L25.044 31.931C25.0822 32.2303 24.9677 32.5267 24.7418 32.7263L18.4352 38.22C18.2385 38.3931 18.1241 38.6396 18.1241 38.9008V61.7883C18.1241 62.2872 17.7191 62.6922 17.2202 62.6922Z" fill="#1E4D37"/>
+      <path d="M49.3726 29.0368L49.3902 28.9781L45.9889 30.9003C39.3389 35.0235 33.8599 40.6434 30.1769 47.5692L27.0779 53.8641C25.7426 43.7894 28.3163 35.5283 35.2069 28.5643C37.8246 26.0464 40.5773 23.9569 43.7585 22.1491C48.2251 19.6136 52.6975 17.4683 57.71 15.4082L57.6806 37.3771C57.6777 40.4585 56.7767 43.2612 55.5677 46.0197C52.137 53.8524 45.3227 59.6601 37.0968 61.9022C34.843 62.5155 32.7653 62.7885 30.2767 62.6593C32.2253 52.4555 34.7961 42.0257 42.2002 35.1409C43.3917 34.0346 45.7482 31.6193 49.3755 29.0368H49.3726Z" fill="#57823C"/>
+      <path d="M41.819 17.202C43.0604 16.5095 44.3018 15.8462 45.5578 15.2035C46.1301 14.9101 46.2211 14.1324 45.7368 13.7127L30.0481 0.219108C29.7018 -0.0802286 29.1853 -0.0714253 28.8478 0.236715L0.293467 26.3993C0.105648 26.5695 0 26.8131 0 27.0655V61.7855C0 62.2844 0.404989 62.6894 0.903883 62.6894H4.88916C5.38805 62.6894 5.79304 62.2844 5.79304 61.7855V29.6157C5.79304 29.3633 5.89869 29.1197 6.08651 28.9495L28.9681 7.98425C29.3056 7.67611 29.8221 7.6673 30.1684 7.96664L40.786 17.0993C41.0736 17.3458 41.4874 17.3869 41.819 17.202Z" fill="#1E4D37"/>
+    </svg>
+    <span class="logo-by">by</span>
+    <!-- Innago logo -->
+    <svg class="logo-svg innago-logo" role="img" aria-label="Innago" focusable="false" width="150" height="36" viewBox="0 0 150 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M31.0847 28.0306L28.4459 25.7571L20.6388 18.9398V14.5378H18.7224V17.2449L11.349 10.8592L3.39796 18.0745V17.4622C3.43367 13.8173 4.87959 10.3194 7.40918 7.68469C10.0112 5.05204 13.4816 3.53673 17.1684 3.53673C20.8551 3.53673 24.3255 5.05102 26.8918 7.68469C29.4939 10.3541 30.9041 13.9622 30.9041 17.6776C30.9041 19.9867 30.3612 22.2592 29.3133 24.3153L31.9878 26.6245C33.5336 23.8964 34.3434 20.8132 34.3378 17.6776C34.3378 13.0245 32.5663 8.55102 29.3133 5.19592C26.0959 1.87551 21.7949 0 17.1684 0C12.5786 0 8.24082 1.87551 5.02449 5.15918C1.77143 8.51327 0 13.0235 0 17.6765C0 22.3296 1.77143 26.8398 5.02449 30.1592C8.24082 33.4418 12.5786 35.3531 17.1684 35.3531C21.7949 35.3531 26.0969 33.4776 29.3133 30.1949C29.9532 29.5154 30.5451 28.7922 31.0847 28.0306ZM9.10816 21.898H11.0959V23.9184H9.10816V21.898ZM11.0959 24.3867V26.4071H9.10816V24.3867H11.0959ZM11.5653 21.8969H13.5551V23.9173H11.5653V21.8969ZM13.5908 24.3867V26.4071H11.5663V24.3867H13.5908ZM26.3133 28.2469C23.8194 30.5194 20.602 31.8184 17.2051 31.8184C13.5184 31.8184 10.048 30.3031 7.48163 27.6694C5.88527 26.0109 4.70806 23.9951 4.04796 21.7898L3.97653 21.6092L11.4214 14.8633L26.5306 28.0306L26.3133 28.2469ZM46.6265 13.2041V25.6122H42.651V9.23571L46.6265 13.2031V13.2041ZM67.4816 25.6122V17.1704C67.4816 12.1194 64.4459 9.27041 60.651 9.27041C58.6265 9.27041 57 10.1 55.3378 11.6878L55.0847 9.48674H51.5061V25.6122H55.4816V17.3878C55.4816 14.9337 57.1449 12.8776 59.602 12.8776C62.1684 12.8776 63.5061 14.7541 63.5061 17.1704V25.6122H67.4816ZM88.1929 25.6122V17.1704C88.1929 12.1194 85.1561 9.27041 81.3612 9.27041C79.3378 9.27041 77.7112 10.1 76.048 11.6878L75.7949 9.48674H72.2173V25.6122H76.1929V17.3878C76.1929 14.9337 77.8561 12.8776 80.3133 12.8776C82.8796 12.8776 84.2173 14.7541 84.2173 17.1704V25.6122H88.1929ZM105.687 11.7592C104.783 10.1724 102.722 9.16224 100.554 9.16224C95.8551 9.12551 92.1327 12.048 92.1327 17.6041C92.1327 23.2673 95.6745 26.1898 100.446 26.1531C102.253 26.1173 104.747 25.2153 105.687 23.3031L105.904 25.6122H109.662V9.52347H105.832L105.687 11.7602V11.7592ZM100.915 12.698C107.205 12.698 107.205 22.4735 100.915 22.4735C98.2775 22.4735 96.1449 20.6337 96.1449 17.5673C96.1449 14.501 98.2775 12.6969 100.915 12.6969V12.698ZM125.494 9.91939C124.373 9.16224 123.072 9.01735 121.807 9.01735C117.289 9.01735 113.639 12.1561 113.639 17.1704C113.639 22.1847 116.783 25.252 121.807 25.252C123.795 25.252 125.892 26.2622 125.892 28.498C125.892 30.7347 124.085 31.9612 121.807 31.9612C119.531 31.9612 117.579 30.5908 117.579 28.498H113.602C113.602 32.8275 117.108 35.6776 121.771 35.6776C126.435 35.6776 129.867 32.9357 129.867 28.498C129.867 26.4418 129.217 24.5296 126.542 23.1592C129.181 21.9684 129.94 19.1551 129.94 17.1347C129.94 15.3673 129.47 13.7796 128.241 12.3724L130.048 10.1L127.12 7.86327L125.494 9.91939ZM121.771 12.6255C124.048 12.6255 125.964 14.3929 125.964 17.1704C125.964 19.949 124.048 21.6439 121.77 21.6439C119.458 21.6439 117.542 19.9847 117.542 17.1704C117.579 14.3571 119.458 12.6255 121.771 12.6255ZM141.469 9.19796C136.337 9.19796 133.12 12.9857 133.12 17.6041C133.12 22.2571 136.265 26.0092 141.506 26.0092C146.747 26.0092 149.928 22.2571 149.928 17.6041C149.928 12.9857 146.602 9.19796 141.469 9.19796ZM141.506 12.8408C144.181 12.8408 145.88 15.1867 145.88 17.6041C145.88 20.0571 144.398 22.3286 141.506 22.3286C138.578 22.3286 137.133 20.0571 137.133 17.6041C137.133 15.1857 138.614 12.8418 141.506 12.8418V12.8408ZM46.6265 8.00816V11.9776L42.651 8.00816H46.6265Z" fill="#426CF5"/>
+    </svg>
+  </a>
+  <div class="header-right">
+    <div class="avatar-chip">
+      <div class="avatar">JR</div>
+      <span>Jordan Reeves</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════ SCENARIO BAR ═══════════════ -->
+<div class="scenario-bar" role="navigation" aria-label="Preview scenarios">
+  <span class="scenario-bar-label">Preview:</span>
+  <button class="scenario-btn active" onclick="go('not-enrolled')">Not enrolled yet</button>
+  <button class="scenario-btn" onclick="go('empty')">No referrals yet</button>
+  <button class="scenario-btn" onclick="go('one-pending')">1 active (month 1 of 3)</button>
+  <button class="scenario-btn" onclick="go('one-confirmed')">1 confirmed → 50% off</button>
+  <button class="scenario-btn" onclick="go('two-confirmed')">2 confirmed → FREE</button>
+  <button class="scenario-btn" onclick="go('three-confirmed')">3 confirmed → stacked</button>
+  <button class="scenario-btn" onclick="go('mixed')">Mixed states</button>
+  <button class="scenario-btn" onclick="go('cancelled')">Referral cancelled</button>
+</div>
+
+<!-- ═══════════════ BODY ═══════════════ -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" aria-label="Account navigation">
+    <div class="sidebar-section">
+      <div class="sidebar-eyebrow">Overview</div>
+      <button class="nav-item" onclick="void(0)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7.5" height="7.5" rx="2" fill="#26463D"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2" fill="#26463D" opacity=".35"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2" fill="#26463D" opacity=".35"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2" fill="#26463D" opacity=".35"/></svg>
+        Dashboard
+      </button>
+      <button class="nav-item" onclick="void(0)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none"><path d="M3 12C3 7.029 7.029 3 12 3s9 4.029 9 9-4.029 9-9 9-9-4.029-9-9z" fill="#718096" opacity=".3"/><path d="M12 7v5l3.5 3.5" stroke="#718096" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Analytics
+      </button>
+    </div>
+    <hr class="nav-divider">
+    <div class="sidebar-section">
+      <div class="sidebar-eyebrow">Account</div>
+      <button class="nav-item" onclick="void(0)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" fill="#718096" opacity=".4"/><path d="M4 20c0-3.866 3.582-7 8-7s8 3.134 8 7" fill="#718096" opacity=".25"/></svg>
+        My Account
+      </button>
+      <button class="nav-item" onclick="void(0)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="14" rx="3" fill="#718096" opacity=".3"/><path d="M7 10h10M7 14h6" stroke="#718096" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Subscription
+      </button>
+      <button class="nav-item active" onclick="void(0)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="8" r="4" fill="#26463D" opacity=".5"/><path d="M3 20c0-3.314 3.134-6 7-6" stroke="#26463D" stroke-width="1.6" stroke-linecap="round"/><circle cx="18" cy="17" r="4" fill="#57823C"/><path d="M16.5 17l1 1L19.5 15.5" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Referrals
+      </button>
+    </div>
+    <hr class="nav-divider">
+    <div class="sidebar-section">
+      <button class="nav-item" onclick="void(0)">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#718096" opacity=".25"/><path d="M12 8v4M12 16h.01" stroke="#718096" stroke-width="2" stroke-linecap="round"/></svg>
+        Help &amp; FAQ
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="main" id="main">
+
+    <div class="page-header">
+      <h1>Refer &amp; Earn</h1>
+      <p>Share REI Grove — earn up to 100% off your subscription for every person you bring in.</p>
+    </div>
+
+    <!-- ══ PRE-ENROLLMENT VIEW (shown until user copies link for first time) ══ -->
+    <div id="pre-enroll-view">
+
+      <!-- How It Works (top in pre-enroll) -->
+      <div style="margin-bottom:var(--space-6)">
+        <div class="section-label">How It Works</div>
+        <div class="how-grid">
+          <div class="how-card">
+            <div class="how-num">1</div>
+            <div class="how-title">Copy your link</div>
+            <div class="how-desc">Every member gets a unique referral link. Share it with investors, landlords, or anyone who might benefit from REI Grove.</div>
+          </div>
+          <div class="how-card">
+            <div class="how-num">2</div>
+            <div class="how-title">They join a paid plan</div>
+            <div class="how-desc">The moment your referral upgrades, your <strong>50% discount starts immediately</strong> — no waiting period. It accrues one month at a time, up to 3 months total.</div>
+          </div>
+          <div class="how-card">
+            <div class="how-num">3</div>
+            <div class="how-title">Keep what you earn</div>
+            <div class="how-desc">If they cancel early, you keep the months already earned. Refer 2 active people at once and your subscription is <strong>free</strong>. Extra referrals queue automatically.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Referral Link (pre-enroll) -->
+      <div class="card" style="margin-bottom:var(--space-5)">
+        <div class="card-header">
+          <div class="card-title-row">
+            <div class="icon-well">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 12a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="#57823C" stroke-width="2" stroke-linecap="round"/><path d="M15 12a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="#57823C" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <span class="card-title">Your Referral Link</span>
+          </div>
+          <div class="card-subtitle">Copy your unique link to get started — your dashboard populates as referrals come in.</div>
+        </div>
+        <div class="link-row">
+          <input class="link-field" id="ref-url-pre" type="text" value="reigrove.com/ref/jordan123" readonly aria-label="Your unique referral link">
+          <button class="btn-primary" id="copy-btn-pre" onclick="copyLinkPre()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="white" stroke-width="1.8"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Copy Link
+          </button>
+        </div>
+        <div class="share-row">
+          <span class="share-label">Share via:</span>
+          <button class="share-btn" onclick="toast('Opening email client…')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2.5" fill="currentColor" opacity=".2"/><path d="M2 7l10 7 10-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Email
+          </button>
+          <button class="share-btn" onclick="toast('Opening LinkedIn…')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path d="M7 10v7M7 7v.01M11 10v7m0-5c0-1.1.9-2 2-2a2 2 0 0 1 2 2v5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+            LinkedIn
+          </button>
+          <button class="share-btn" onclick="toast('Opening X…')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#000"/><path d="M17.5 3h2.9l-6.2 7.1L21 21h-5.5l-4-5.3L7 21H4.1l6.6-7.6L3 3h5.6l3.6 4.7L17.5 3z" fill="white"/></svg>
+            X / Twitter
+          </button>
+        </div>
+      </div>
+
+      <!-- FAQ (pre-enroll) -->
+      <div class="card" style="margin-bottom:var(--space-5)">
+        <div class="card-title-row" style="margin-bottom:20px">
+          <div class="icon-well">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#57823C" opacity=".2"/><path d="M9.5 9.5a2.5 2.5 0 0 1 4.95.6c0 1.5-1.5 2.4-2.45 2.9V14" stroke="#57823C" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="17" r=".9" fill="#57823C"/></svg>
+          </div>
+          <span class="card-title">Frequently Asked Questions</span>
+        </div>
+        <div id="faq-pre">
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Do discounts stack when I refer multiple people?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Yes. Each active referral contributes 50% off while they remain subscribed (up to 3 months each). Two active referrals at once combine to 100% off — completely free. The cap is 100%; no cash or credits beyond free access. Additional referrals queue and activate automatically as earlier ones expire.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">When exactly does my discount start?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">The moment your referral upgrades to a paid plan — no waiting period. Your 50% discount activates on your next billing cycle and accrues one month at a time for as long as they stay subscribed, up to 3 months total.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if my referral cancels before 3 months?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">You keep every month of discount you've already earned — those are yours. Only future months stop. So if your referral cancels after month 2, you've already received 2 months of 50% off and those stay applied.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">How long does the 50% discount last per referral?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Up to 3 months per referral — one month earned for each month they stay on a paid plan. Once they hit month 3 (or cancel), that referral's contribution is complete. Your billing returns to normal after unless other referrals are active or queued.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">I'm on an annual plan — how does the discount apply?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Annual subscribers receive credits that apply at their next renewal. Each month a referral is active earns ~$8.33 in credit (50% of the monthly equivalent). A full 3-month referral = ~$25 credit. Credits accumulate and surplus carries forward.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Is there a limit to how many people I can refer?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No hard cap. Up to 10 referral discount months can be credited per calendar month — any beyond that queue for the next month. The 100% maximum discount cap applies regardless of how many referrals are simultaneously active.</div></div>
+        </div>
+      </div>
+
+    </div><!-- /pre-enroll-view -->
+
+    <!-- ══ ENROLLED VIEW (shown after user copies link for first time) ══ -->
+    <div id="enrolled-view" class="view-hidden">
+
+    <!-- ── DISCOUNT STATUS ── -->
+    <div class="discount-hero" id="dh">
+      <div class="dh-inner">
+        <div class="dh-left">
+          <div class="dh-eyebrow dark section-label" id="dh-eyebrow">Active Discount</div>
+          <div class="dh-amount" id="dh-amount">50% <sub>off</sub></div>
+          <div class="dh-desc" id="dh-desc">Your next 2 months are billed at <strong>$10/mo</strong>. Discount expires in <strong>61 days</strong>.</div>
+          <div class="dh-progress-header"><span>0 referrals</span><span>1 referral — 50% off</span><span>2 referrals — FREE</span></div>
+          <div class="dh-track"><div class="dh-fill" id="dh-bar" style="width:50%"></div></div>
+          <div class="dh-milestones">
+            <span class="ms hit">● 0</span>
+            <span class="ms hit" id="ms1">● 1 referral</span>
+            <span class="ms" id="ms2">● 2 referrals</span>
+          </div>
+        </div>
+        <div class="dh-right">
+          <div class="billing-card">
+            <div class="bc-label">Next Bill</div>
+            <div class="bc-price" id="bc-price">$10 <span>/mo</span></div>
+            <div class="bc-was" id="bc-was">was $20/mo</div>
+            <div class="bc-save" id="bc-save">Saving $10/mo</div>
+          </div>
+          <div class="queue-pill" id="queue-pill" style="display:none">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.5 7.5H22l-6.5 4.5 2.5 7.5L12 17l-6.5 4.5L8 14 1.5 9.5H9.5L12 2z" fill="currentColor"/></svg>
+            <span id="queue-text"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── REFERRAL LINK ── -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title-row">
+          <div class="icon-well">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 12a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="#57823C" stroke-width="2" stroke-linecap="round"/><path d="M15 12a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="#57823C" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <span class="card-title">Your Referral Link</span>
+        </div>
+        <div class="card-subtitle">Your 50% discount starts the moment each referral upgrades — and accrues up to 3 months per person.</div>
+      </div>
+      <div class="link-row">
+        <input class="link-field" id="ref-url" type="text" value="reigrove.com/ref/jordan123" readonly aria-label="Your unique referral link">
+        <button class="btn-primary" id="copy-btn" onclick="copyLink()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="white" stroke-width="1.8"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+          Copy Link
+        </button>
+      </div>
+      <div class="share-row">
+        <span class="share-label">Share via:</span>
+        <button class="share-btn" onclick="toast('Opening email client…')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2.5" fill="currentColor" opacity=".2"/><path d="M2 7l10 7 10-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          Email
+        </button>
+        <button class="share-btn" onclick="toast('Opening LinkedIn…')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path d="M7 10v7M7 7v.01M11 10v7m0-5c0-1.1.9-2 2-2a2 2 0 0 1 2 2v5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+          LinkedIn
+        </button>
+        <button class="share-btn" onclick="toast('Opening X…')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#000"/><path d="M17.5 3h2.9l-6.2 7.1L21 21h-5.5l-4-5.3L7 21H4.1l6.6-7.6L3 3h5.6l3.6 4.7L17.5 3z" fill="white"/></svg>
+          X / Twitter
+        </button>
+      </div>
+    </div>
+
+    <!-- ── STATS ── -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Link Clicks</div>
+        <div class="stat-value" id="s-clicks">24</div>
+        <div class="stat-sub">last 30 days</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Referrals</div>
+        <div class="stat-value" id="s-total">3</div>
+        <div class="stat-sub" id="s-total-sub">all time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Saved</div>
+        <div class="stat-value" id="s-saved">$10</div>
+        <div class="stat-sub" id="s-saved-sub">in subscription savings</div>
+      </div>
+    </div>
+
+    <!-- ── REFERRAL LIST ── -->
+    <div class="card">
+      <div class="table-header">
+        <div>
+          <div class="card-title-row">
+            <div class="icon-well">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.5" fill="#57823C" opacity=".5"/><path d="M3 20c0-3.314 2.686-6 6-6h2" stroke="#57823C" stroke-width="1.8" stroke-linecap="round"/><circle cx="17" cy="16" r="4" fill="#57823C" opacity=".25"/><path d="M15.5 16l1.2 1.2L18.5 14.5" stroke="#57823C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="card-title">Your Referrals</span>
+          </div>
+          <div class="card-subtitle">Track each person you've referred and their reward status.</div>
+        </div>
+        <div class="filter-chips" id="filter-chips">
+          <button class="chip active" onclick="filter(this,'all')">All</button>
+          <button class="chip" onclick="filter(this,'confirmed')">Complete</button>
+          <button class="chip" onclick="filter(this,'active')">Active</button>
+          <button class="chip" onclick="filter(this,'cancelled')">Cancelled</button>
+        </div>
+      </div>
+      <div id="ref-list"></div>
+    </div>
+
+    <!-- ── TIMELINE ── -->
+    <div class="tinted" id="timeline-wrap">
+      <div class="section-label">Discount Timeline</div>
+      <div class="card-subtitle" style="margin-bottom:0">How your earned vouchers apply across upcoming months.</div>
+      <div class="timeline-scroll" id="tl-months"></div>
+      <div class="tl-legend">
+        <div class="tl-leg"><div class="tl-dot" style="background:linear-gradient(135deg,#9FE1CB,#C0DD97)"></div> 100% off (free)</div>
+        <div class="tl-leg"><div class="tl-dot" style="background:var(--light-green);border:1.5px solid rgba(87,130,60,.25)"></div> 50% off</div>
+        <div class="tl-leg"><div class="tl-dot" style="background:rgba(159,225,203,.12);border:1.5px dashed rgba(159,225,203,.38)"></div> Queued / pending</div>
+        <div class="tl-leg"><div class="tl-dot" style="background:var(--white);border:1.5px solid var(--border)"></div> Full price ($20)</div>
+      </div>
+    </div>
+
+    </div><!-- /enrolled-view -->
+
+  </main>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast-el" role="status" aria-live="polite">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <span id="toast-msg">Done</span>
+</div>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="https://reigrove.com" class="logo-pair footer-logo" aria-label="REI Grove by Innago home">
+      <svg class="logo-svg rei-logo" role="img" aria-label="REI Grove" focusable="false" width="130" height="40" viewBox="0 0 250 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M87.2593 52.4306L80.5095 40.7008H76.8382V52.4306H72.0283V23.1074H82.1529C84.4038 23.1074 86.3084 23.5007 87.8697 24.2901C89.4309 25.0766 90.5989 26.1331 91.3707 27.4537C92.1426 28.7772 92.5299 30.2533 92.5299 31.885C92.5299 33.7984 91.9753 35.5357 90.863 37.0941C89.7508 38.6553 88.0428 39.7177 85.7362 40.2782L92.9936 52.4306H87.2563H87.2593ZM76.8382 36.8622H82.1559C83.9548 36.8622 85.3136 36.4132 86.2263 35.5123C87.1389 34.6113 87.5967 33.4022 87.5967 31.885C87.5967 30.3678 87.1477 29.1793 86.2468 28.3194C85.3459 27.4625 83.9812 27.0311 82.1529 27.0311H76.8353V36.8622H76.8382Z" fill="#26463D"/>
+        <path d="M101.815 26.9901V35.5975H111.939V39.5211H101.815V48.5071H113.207V52.4307H97.0049V23.0664H113.207V26.9901H101.815Z" fill="#26463D"/>
+        <path d="M122.235 23.1074V52.4306H117.425V23.1074H122.235Z" fill="#26463D"/>
+        <path d="M156.201 31.5423C155.441 30.0809 154.387 28.9745 153.037 28.2291C151.687 27.4837 150.126 27.111 148.354 27.111C146.414 27.111 144.682 27.5482 143.165 28.4198C141.645 29.2914 140.456 30.5299 139.599 32.1322C138.743 33.7345 138.314 35.5922 138.314 37.7022C138.314 39.8122 138.743 41.6757 139.599 43.2927C140.456 44.9097 141.645 46.154 143.165 47.0256C144.685 47.8972 146.414 48.3345 148.354 48.3345C150.968 48.3345 153.093 47.6038 154.725 46.1394C156.356 44.6779 157.354 42.6941 157.721 40.1908H146.71V36.3522H162.868V40.1057C162.557 42.383 161.75 44.4813 160.441 46.3918C159.133 48.3052 157.43 49.8312 155.335 50.9698C153.24 52.1085 150.913 52.6778 148.354 52.6778C145.598 52.6778 143.08 52.0381 140.803 50.7585C138.525 49.479 136.718 47.7006 135.382 45.4204C134.047 43.1431 133.378 40.5694 133.378 37.6993C133.378 34.8292 134.047 32.2554 135.382 29.9781C136.718 27.7008 138.531 25.9224 140.826 24.64C143.118 23.3605 145.63 22.7207 148.356 22.7207C151.479 22.7207 154.255 23.4867 156.688 25.0215C159.121 26.5534 160.888 28.728 161.982 31.5394H156.201V31.5423Z" fill="#26463D"/>
+        <path d="M173.518 29.7966C174.686 29.1363 176.071 28.8047 177.673 28.8047V33.7819H176.45C174.565 33.7819 173.136 34.2602 172.168 35.2169C171.196 36.1736 170.712 37.8317 170.712 40.1941V52.4288H165.902V29.1803H170.712V32.5552C171.414 31.3725 172.35 30.454 173.518 29.7907V29.7966Z" fill="#26463D"/>
+        <path d="M184.552 51.3136C182.78 50.3158 181.389 48.9072 180.376 47.0936C179.364 45.2799 178.856 43.1758 178.856 40.7869C178.856 38.3981 179.375 36.3292 180.417 34.5009C181.456 32.6726 182.879 31.2669 184.678 30.2808C186.477 29.2977 188.49 28.8047 190.712 28.8047C192.934 28.8047 194.944 29.2977 196.746 30.2808C198.545 31.2669 199.965 32.6726 201.007 34.5009C202.046 36.3292 202.568 38.4245 202.568 40.7869C202.568 43.1494 202.034 45.2447 200.966 47.073C199.898 48.9013 198.442 50.3158 196.599 51.3136C194.756 52.3114 192.725 52.8103 190.504 52.8103C188.282 52.8103 186.328 52.3114 184.555 51.3136H184.552ZM193.981 47.748C195.064 47.1581 195.945 46.2718 196.62 45.0892C197.294 43.9065 197.632 42.4744 197.632 40.7869C197.632 39.0995 197.309 37.6733 196.661 36.5053C196.012 35.3373 195.155 34.4598 194.087 33.867C193.019 33.2771 191.865 32.9807 190.627 32.9807C189.389 32.9807 188.244 33.2771 187.187 33.867C186.131 34.4569 185.295 35.3373 184.678 36.5053C184.059 37.6733 183.751 39.0995 183.751 40.7869C183.751 43.2902 184.391 45.2242 185.67 46.5888C186.95 47.9534 188.561 48.6343 190.501 48.6343C191.739 48.6343 192.898 48.3378 193.981 47.748Z" fill="#26463D"/>
+        <path d="M214.632 48.123L221.215 29.1797H226.321L217.461 52.4281H211.724L202.905 29.1797H208.053L214.635 48.123H214.632Z" fill="#26463D"/>
+        <path d="M249.4 42.5996H231.636C231.777 44.4572 232.467 45.948 233.702 47.072C234.941 48.196 236.458 48.7595 238.26 48.7595C240.848 48.7595 242.677 47.6766 243.745 45.5108H248.933C248.229 47.6501 246.955 49.3992 245.115 50.7638C243.272 52.1285 240.986 52.8093 238.26 52.8093C236.038 52.8093 234.049 52.3104 232.291 51.3126C230.533 50.3148 229.154 48.9062 228.156 47.0926C227.158 45.2789 226.659 43.1748 226.659 40.786C226.659 38.3971 227.143 36.293 228.115 34.4794C229.086 32.6657 230.448 31.2659 232.209 30.2828C233.967 29.2997 235.986 28.8066 238.263 28.8066C240.54 28.8066 242.412 29.285 244.126 30.2417C245.84 31.1984 247.178 32.5395 248.135 34.271C249.092 35.9995 249.57 37.9922 249.57 40.2401C249.57 41.1117 249.514 41.9011 249.4 42.6025V42.5996ZM244.546 38.717C244.517 36.9445 243.886 35.5241 242.647 34.4559C241.409 33.3877 239.877 32.8535 238.049 32.8535C236.388 32.8535 234.967 33.3818 233.788 34.4353C232.605 35.4889 231.903 36.9181 231.677 38.717H244.546Z" fill="#26463D"/>
+        <path d="M17.2202 62.6922H13.2349C12.736 62.6922 12.3311 62.2872 12.3311 61.7883V36.2655C12.3311 36.0043 12.4455 35.7548 12.6421 35.5846L22.9546 26.5987C23.5004 26.1233 24.3544 26.449 24.4454 27.168L25.044 31.931C25.0822 32.2303 24.9677 32.5267 24.7418 32.7263L18.4352 38.22C18.2385 38.3931 18.1241 38.6396 18.1241 38.9008V61.7883C18.1241 62.2872 17.7191 62.6922 17.2202 62.6922Z" fill="#1E4D37"/>
+        <path d="M49.3726 29.0368L49.3902 28.9781L45.9889 30.9003C39.3389 35.0235 33.8599 40.6434 30.1769 47.5692L27.0779 53.8641C25.7426 43.7894 28.3163 35.5283 35.2069 28.5643C37.8246 26.0464 40.5773 23.9569 43.7585 22.1491C48.2251 19.6136 52.6975 17.4683 57.71 15.4082L57.6806 37.3771C57.6777 40.4585 56.7767 43.2612 55.5677 46.0197C52.137 53.8524 45.3227 59.6601 37.0968 61.9022C34.843 62.5155 32.7653 62.7885 30.2767 62.6593C32.2253 52.4555 34.7961 42.0257 42.2002 35.1409C43.3917 34.0346 45.7482 31.6193 49.3755 29.0368H49.3726Z" fill="#57823C"/>
+        <path d="M41.819 17.202C43.0604 16.5095 44.3018 15.8462 45.5578 15.2035C46.1301 14.9101 46.2211 14.1324 45.7368 13.7127L30.0481 0.219108C29.7018 -0.0802286 29.1853 -0.0714253 28.8478 0.236715L0.293467 26.3993C0.105648 26.5695 0 26.8131 0 27.0655V61.7855C0 62.2844 0.404989 62.6894 0.903883 62.6894H4.88916C5.38805 62.6894 5.79304 62.2844 5.79304 61.7855V29.6157C5.79304 29.3633 5.89869 29.1197 6.08651 28.9495L28.9681 7.98425C29.3056 7.67611 29.8221 7.6673 30.1684 7.96664L40.786 17.0993C41.0736 17.3458 41.4874 17.3869 41.819 17.202Z" fill="#1E4D37"/>
+      </svg>
+      <span class="logo-by">by</span>
+      <svg class="logo-svg innago-logo" role="img" aria-label="Innago" focusable="false" width="150" height="36" viewBox="0 0 150 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M31.0847 28.0306L28.4459 25.7571L20.6388 18.9398V14.5378H18.7224V17.2449L11.349 10.8592L3.39796 18.0745V17.4622C3.43367 13.8173 4.87959 10.3194 7.40918 7.68469C10.0112 5.05204 13.4816 3.53673 17.1684 3.53673C20.8551 3.53673 24.3255 5.05102 26.8918 7.68469C29.4939 10.3541 30.9041 13.9622 30.9041 17.6776C30.9041 19.9867 30.3612 22.2592 29.3133 24.3153L31.9878 26.6245C33.5336 23.8964 34.3434 20.8132 34.3378 17.6776C34.3378 13.0245 32.5663 8.55102 29.3133 5.19592C26.0959 1.87551 21.7949 0 17.1684 0C12.5786 0 8.24082 1.87551 5.02449 5.15918C1.77143 8.51327 0 13.0235 0 17.6765C0 22.3296 1.77143 26.8398 5.02449 30.1592C8.24082 33.4418 12.5786 35.3531 17.1684 35.3531C21.7949 35.3531 26.0969 33.4776 29.3133 30.1949C29.9532 29.5154 30.5451 28.7922 31.0847 28.0306ZM9.10816 21.898H11.0959V23.9184H9.10816V21.898ZM11.0959 24.3867V26.4071H9.10816V24.3867H11.0959ZM11.5653 21.8969H13.5551V23.9173H11.5653V21.8969ZM13.5908 24.3867V26.4071H11.5663V24.3867H13.5908ZM26.3133 28.2469C23.8194 30.5194 20.602 31.8184 17.2051 31.8184C13.5184 31.8184 10.048 30.3031 7.48163 27.6694C5.88527 26.0109 4.70806 23.9951 4.04796 21.7898L3.97653 21.6092L11.4214 14.8633L26.5306 28.0306L26.3133 28.2469ZM46.6265 13.2041V25.6122H42.651V9.23571L46.6265 13.2031V13.2041ZM67.4816 25.6122V17.1704C67.4816 12.1194 64.4459 9.27041 60.651 9.27041C58.6265 9.27041 57 10.1 55.3378 11.6878L55.0847 9.48674H51.5061V25.6122H55.4816V17.3878C55.4816 14.9337 57.1449 12.8776 59.602 12.8776C62.1684 12.8776 63.5061 14.7541 63.5061 17.1704V25.6122H67.4816ZM88.1929 25.6122V17.1704C88.1929 12.1194 85.1561 9.27041 81.3612 9.27041C79.3378 9.27041 77.7112 10.1 76.048 11.6878L75.7949 9.48674H72.2173V25.6122H76.1929V17.3878C76.1929 14.9337 77.8561 12.8776 80.3133 12.8776C82.8796 12.8776 84.2173 14.7541 84.2173 17.1704V25.6122H88.1929ZM105.687 11.7592C104.783 10.1724 102.722 9.16224 100.554 9.16224C95.8551 9.12551 92.1327 12.048 92.1327 17.6041C92.1327 23.2673 95.6745 26.1898 100.446 26.1531C102.253 26.1173 104.747 25.2153 105.687 23.3031L105.904 25.6122H109.662V9.52347H105.832L105.687 11.7602V11.7592ZM100.915 12.698C107.205 12.698 107.205 22.4735 100.915 22.4735C98.2775 22.4735 96.1449 20.6337 96.1449 17.5673C96.1449 14.501 98.2775 12.6969 100.915 12.6969V12.698ZM125.494 9.91939C124.373 9.16224 123.072 9.01735 121.807 9.01735C117.289 9.01735 113.639 12.1561 113.639 17.1704C113.639 22.1847 116.783 25.252 121.807 25.252C123.795 25.252 125.892 26.2622 125.892 28.498C125.892 30.7347 124.085 31.9612 121.807 31.9612C119.531 31.9612 117.579 30.5908 117.579 28.498H113.602C113.602 32.8275 117.108 35.6776 121.771 35.6776C126.435 35.6776 129.867 32.9357 129.867 28.498C129.867 26.4418 129.217 24.5296 126.542 23.1592C129.181 21.9684 129.94 19.1551 129.94 17.1347C129.94 15.3673 129.47 13.7796 128.241 12.3724L130.048 10.1L127.12 7.86327L125.494 9.91939ZM121.771 12.6255C124.048 12.6255 125.964 14.3929 125.964 17.1704C125.964 19.949 124.048 21.6439 121.77 21.6439C119.458 21.6439 117.542 19.9847 117.542 17.1704C117.579 14.3571 119.458 12.6255 121.771 12.6255ZM141.469 9.19796C136.337 9.19796 133.12 12.9857 133.12 17.6041C133.12 22.2571 136.265 26.0092 141.506 26.0092C146.747 26.0092 149.928 22.2571 149.928 17.6041C149.928 12.9857 146.602 9.19796 141.469 9.19796ZM141.506 12.8408C144.181 12.8408 145.88 15.1867 145.88 17.6041C145.88 20.0571 144.398 22.3286 141.506 22.3286C138.578 22.3286 137.133 20.0571 137.133 17.6041C137.133 15.1857 138.614 12.8418 141.506 12.8418V12.8408ZM46.6265 8.00816V11.9776L42.651 8.00816H46.6265Z" fill="#426CF5"/>
+      </svg>
+    </a>
+    <p class="footer-copy">© 2026 REI Grove by Innago. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+      <a href="#">Help</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── SCENARIO DATA ── */
+const S = {
+  empty: {
+    amount: '<sub style="font-size:18px;font-weight:400;color:rgba(255,255,255,.45)">No discount yet</sub>',
+    eyebrow:'No Active Discount', barW:'0%',
+    desc:'Refer your first person to unlock 50% off. Refer two and REI Grove is free.',
+    price:'$20', was:'', save:'No discount active',
+    queue:null, m1:false, m2:false,
+    clicks:0, total:0, saved:'$0', savedSub:'in subscription savings',
+    refs:[], tl:'empty'
+  },
+  'one-pending':{
+    amount:'50% <sub>off</sub>', eyebrow:'Active Discount — Month 1 of 3', barW:'50%',
+    desc:'Marcus upgraded last month. Your 50% discount is <strong>live now</strong> and continues for each month they stay subscribed, up to 3 months.',
+    price:'$10', was:'was $20/mo', save:'Saving $10/mo',
+    queue:null, m1:true, m2:false,
+    clicks:12, total:1, saved:'$10', savedSub:'in subscription savings',
+    refs:[{name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:1,monthsEarned:1,voucher:'50% off — 1 of 3 mo earned'}],
+    tl:'one-pending'
+  },
+  'one-confirmed':{
+    amount:'50% <sub>off</sub>', eyebrow:'Active Discount', barW:'50%',
+    desc:'Your next 2 months are billed at <strong>$10/mo</strong>. Discount expires in <strong>61 days</strong>.',
+    price:'$10', was:'was $20/mo', save:'Saving $10/mo',
+    queue:null, m1:true, m2:false,
+    clicks:24, total:3, saved:'$10', savedSub:'in subscription savings',
+    refs:[
+      {name:'Alicia M.',date:'Mar 1, 2026',status:'confirmed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
+      {name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:2,monthsEarned:2,voucher:'50% off — 2 of 3 mo earned'},
+      {name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:1,monthsEarned:1,voucher:'50% off — 1 of 3 mo earned'},
+    ], tl:'one-confirmed'
+  },
+  'two-confirmed':{
+    amount:'FREE <sub style="font-size:14px;color:rgba(255,255,255,.45)"></sub>', eyebrow:'100% Off — Free Access', barW:'100%',
+    desc:'You have 2 confirmed referrals. REI Grove is completely <strong>free</strong> for the next 3 months.',
+    price:'$0', was:'was $20/mo', save:'Saving $20/mo — free!',
+    queue:null, m1:true, m2:true,
+    clicks:38, total:2, saved:'$40', savedSub:'in subscription savings',
+    refs:[
+      {name:'Alicia M.',date:'Mar 1, 2026',status:'confirmed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
+      {name:'Priya S.',date:'Mar 14, 2026',status:'confirmed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
+    ], tl:'two-confirmed'
+  },
+  'three-confirmed':{
+    amount:'FREE <sub style="font-size:14px;color:rgba(255,255,255,.45)"></sub>', eyebrow:'Free + 1 Voucher Queued', barW:'100%',
+    desc:'You\'re free now — plus a <strong>3rd voucher is queued</strong> for when your current window ends.',
+    price:'$0', was:'was $20/mo', save:'Saving $20/mo — free!',
+    queue:'1 voucher queued — 50% off for 3 mo', m1:true, m2:true,
+    clicks:51, total:3, saved:'$60', savedSub:'in subscription savings',
+    refs:[
+      {name:'Alicia M.',date:'Mar 1, 2026',status:'confirmed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
+      {name:'Priya S.',date:'Mar 14, 2026',status:'confirmed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
+      {name:'Tyler R.',date:'Apr 2, 2026',status:'confirmed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo (queued)'},
+    ], tl:'three-confirmed'
+  },
+  mixed:{
+    amount:'50% <sub>off</sub>', eyebrow:'Active Discount — More Earning', barW:'50%',
+    desc:'1 confirmed discount active. 1 more referral pending — confirm them to go <strong>free</strong>.',
+    price:'$10', was:'was $20/mo', save:'Saving $10/mo',
+    queue:'1 voucher pending confirmation', m1:true, m2:false,
+    clicks:34, total:4, saved:'$20', savedSub:'in subscription savings',
+    refs:[
+      {name:'Alicia M.',date:'Mar 1, 2026',status:'confirmed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
+      {name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:2,monthsEarned:2,voucher:'50% off — 2 of 3 mo earned'},
+      {name:'Keisha W.',date:'May 3, 2026',status:'active',prog:1,monthsEarned:1,voucher:'50% off — 1 of 3 mo earned'},
+      {name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:2,monthsEarned:2,voucher:'50% off — 2 of 3 mo earned'},
+    ], tl:'mixed'
+  },
+  cancelled:{
+    amount:'50% <sub>off</sub>', eyebrow:'Active Discount — Referral Cancelled Early', barW:'50%',
+    desc:'Devon cancelled after month 2. You already earned <strong>2 months of 50% off</strong> — those are applied to your account.',
+    price:'$10', was:'was $20/mo', save:'1 month remaining',
+    queue:null, m1:true, m2:false,
+    clicks:9, total:1, saved:'$20', savedSub:'in subscription savings',
+    refs:[{name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:2,monthsEarned:2,voucher:'50% off — 2 of 3 mo earned'}],
+    tl:'one-confirmed'
+  }
+};
+
+const TL = {
+  empty:[
+    {m:'Jun',t:'full'},{m:'Jul',t:'full'},{m:'Aug',t:'full'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
+  ],
+  'one-pending':[
+    {m:'Jun',t:'full'},{m:'Jul',t:'queued',l:'Pend'},{m:'Aug',t:'queued',l:'Pend'},{m:'Sep',t:'queued',l:'Pend'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
+  ],
+  'one-confirmed':[
+    {m:'Jun',t:'half',l:'50%'},{m:'Jul',t:'half',l:'50%'},{m:'Aug',t:'half',l:'50%'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
+  ],
+  'two-confirmed':[
+    {m:'Jun',t:'free',l:'FREE'},{m:'Jul',t:'free',l:'FREE'},{m:'Aug',t:'free',l:'FREE'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
+  ],
+  'three-confirmed':[
+    {m:'Jun',t:'free',l:'FREE'},{m:'Jul',t:'free',l:'FREE'},{m:'Aug',t:'free',l:'FREE'},{m:'Sep',t:'half',l:'50%'},{m:'Oct',t:'half',l:'50%'},{m:'Nov',t:'half',l:'50%'}
+  ],
+  mixed:[
+    {m:'Jun',t:'half',l:'50%'},{m:'Jul',t:'half',l:'50%'},{m:'Aug',t:'half',l:'50%'},{m:'Sep',t:'queued',l:'Pend'},{m:'Oct',t:'queued',l:'Pend'},{m:'Nov',t:'queued',l:'Pend'}
+  ],
+  cancelled:[
+    {m:'Jun',t:'full'},{m:'Jul',t:'full'},{m:'Aug',t:'full'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
+  ]
+};
+
+let currentFilter = 'all';
+let currentScenario = 'not-enrolled';
+
+function go(name) {
+  currentScenario = name;
+
+  // Scenario bar
+  document.querySelectorAll('.scenario-btn').forEach(b => b.classList.toggle('active', b.getAttribute('onclick') === `go('${name}')`));
+
+  // Toggle pre-enroll vs enrolled views
+  const isEnrolled = name !== 'not-enrolled';
+  const preEl = document.getElementById('pre-enroll-view');
+  const enrEl = document.getElementById('enrolled-view');
+  if (isEnrolled) {
+    preEl.classList.add('view-hidden');
+    enrEl.classList.remove('view-hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    preEl.classList.remove('view-hidden');
+    enrEl.classList.add('view-hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  if (!isEnrolled) return; // nothing else to update
+
+  const d = S[name];
+
+  // Discount hero
+  document.getElementById('dh-eyebrow').textContent = d.eyebrow;
+  document.getElementById('dh-amount').innerHTML = d.amount;
+  document.getElementById('dh-desc').innerHTML = d.desc;
+  document.getElementById('dh-bar').style.width = d.barW;
+  document.getElementById('bc-price').innerHTML = d.price + (d.price !== '$0' ? ' <span>/mo</span>' : ' <span style="font-size:13px;color:rgba(255,255,255,.4)">/mo</span>');
+  document.getElementById('bc-was').textContent = d.was;
+  document.getElementById('bc-save').textContent = d.save;
+  document.getElementById('ms1').className = 'ms' + (d.m1 ? ' hit' : '');
+  document.getElementById('ms2').className = 'ms' + (d.m2 ? ' hit' : '');
+  const qp = document.getElementById('queue-pill');
+  if (d.queue) { qp.style.display = 'inline-flex'; document.getElementById('queue-text').textContent = d.queue; }
+  else { qp.style.display = 'none'; }
+
+  // Stats
+  document.getElementById('s-clicks').textContent = d.clicks;
+  document.getElementById('s-total').textContent = d.total;
+  document.getElementById('s-total-sub').textContent = 'all time';
+  document.getElementById('s-saved').textContent = d.saved;
+  document.getElementById('s-saved-sub').textContent = d.savedSub;
+
+  renderRefs(d.refs);
+  renderTimeline(TL[d.tl]);
+}
+
+function copyLinkPre() {
+  const v = document.getElementById('ref-url-pre').value;
+  navigator.clipboard.writeText(v).catch(() => {});
+  const btn = document.getElementById('copy-btn-pre');
+  btn.classList.add('done');
+  btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Copied!`;
+  toast('Link copied! Your dashboard is ready.');
+  setTimeout(() => { go('empty'); }, 800);
+}
+
+function renderRefs(refs) {
+  const list = document.getElementById('ref-list');
+  const shown = currentFilter === 'all' ? refs : refs.filter(r => r.status === currentFilter);
+
+  if (!refs.length) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="8" r="4" fill="#57823C" opacity=".5"/><path d="M3 21c0-3.866 3.134-7 7-7h3" stroke="#57823C" stroke-width="1.8" stroke-linecap="round"/><circle cx="18" cy="17" r="4" fill="#57823C" opacity=".25"/><path d="M16.5 17l1.2 1.2 2-2" stroke="#57823C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="empty-title">No referrals yet</div><div class="empty-desc">Share your link above and start earning. Each confirmed referral is worth 50% off your bill.</div><button class="btn-primary" onclick="copyLink()" style="margin:0 auto;display:inline-flex">Copy my link</button></div>`;
+    return;
+  }
+  if (!shown.length) {
+    list.innerHTML = `<div class="empty-state" style="padding:32px 16px"><div class="empty-title">No ${currentFilter} referrals</div><div class="empty-desc">Switch to "All" to see your full list.</div></div>`;
+    return;
+  }
+
+  const badgeMap = {
+    confirmed: {cls:'badge-confirmed', icon:'<path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>', label:'Complete'},
+    active:    {cls:'badge-active',    icon:'<circle cx="12" cy="12" r="4" fill="currentColor"/>',                                                                  label:'Active'},
+    cancelled: {cls:'badge-cancelled', icon:'<path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',                      label:'Cancelled'},
+  };
+
+  let html = `<table class="ref-table" role="table"><thead><tr><th>Referral</th><th>Joined</th><th>Status</th><th>Months Earned</th><th>Reward</th></tr></thead><tbody>`;
+  shown.forEach(r => {
+    const b = badgeMap[r.status] || badgeMap.active;
+    const earned = r.monthsEarned || 0;
+    const pct = Math.round((earned / 3) * 100);
+    let progHTML;
+    if (r.status === 'confirmed') {
+      progHTML = `<div class="prog"><div class="prog-track"><div class="prog-fill done" style="width:100%"></div></div><span class="prog-label" style="color:var(--success);font-weight:600">3 of 3 ✓</span></div>`;
+    } else if (r.status === 'active') {
+      progHTML = `<div class="prog"><div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div><span class="prog-label">${earned} of 3 mo</span></div>`;
+    } else {
+      progHTML = `<div class="prog"><div class="prog-track"><div class="prog-fill cancel" style="width:${pct}%"></div></div><span class="prog-label" style="color:var(--error)">${earned} of 3 mo</span></div>`;
+    }
+    const isQueued = r.voucher && r.voucher.includes('queued');
+    const vHTML = r.voucher ? `<span class="voucher-tag${isQueued?' queued':''}">${isQueued?'⏳ ':''}${r.voucher}</span>` : `<span style="color:var(--muted);font-size:12px">—</span>`;
+    html += `<tr><td><div class="ref-name">${r.name}</div></td><td><div class="ref-date">${r.date}</div></td><td><span class="badge ${b.cls}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none">${b.icon}</svg> ${b.label}</span></td><td>${progHTML}</td><td>${vHTML}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  list.innerHTML = html;
+}
+
+function renderTimeline(months) {
+  const wrap = document.getElementById('tl-months');
+  const typeMap = {free:'tm-free',half:'tm-half',full:'tm-full',queued:'tm-queued'};
+  const labelMap = {free:'FREE',half:'50%',full:'$20',queued:'Pend.'};
+  wrap.innerHTML = months.map(m =>
+    `<div class="tm-col"><div class="tm-block ${typeMap[m.t]}">${m.l || labelMap[m.t]}</div><div class="tm-label${m.m==='Jun'?' now':''}">${m.m}${m.m==='Jun'?' ←':''}</div></div>`
+  ).join('');
+}
+
+function filter(el, f) {
+  currentFilter = f;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  if (S[currentScenario]) renderRefs(S[currentScenario].refs);
+}
+
+function faqToggle(btn) {
+  const ans = btn.nextElementSibling;
+  const open = btn.classList.contains('open');
+  document.querySelectorAll('.faq-q').forEach(q => { q.classList.remove('open'); q.nextElementSibling.classList.remove('open'); });
+  if (!open) { btn.classList.add('open'); ans.classList.add('open'); }
+}
+
+function copyLink() {
+  const v = document.getElementById('ref-url').value;
+  navigator.clipboard.writeText(v).catch(() => {});
+  const btn = document.getElementById('copy-btn');
+  btn.classList.add('done');
+  btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Copied!`;
+  toast('Link copied to clipboard!');
+  setTimeout(() => {
+    btn.classList.remove('done');
+    btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="white" stroke-width="1.8"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg> Copy Link`;
+  }, 2500);
+}
+
+function toast(msg) {
+  const el = document.getElementById('toast-el');
+  document.getElementById('toast-msg').textContent = msg;
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+go('not-enrolled');
+</script>
+</body>
+</html>
