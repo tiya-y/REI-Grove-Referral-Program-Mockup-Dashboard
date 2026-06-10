@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>REI Grove — Referral Dashboard</title>
+<title>REI Grove Referral Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -120,6 +120,12 @@ body { font-family: var(--font-sans); background: var(--bg); color: var(--text);
 }
 .section-label::before { content: ""; width: 24px; height: 2px; background: currentColor; }
 .dark .section-label { color: var(--mint); }
+
+/* ── HERO EYEBROW (no leading line) ── */
+.dh-eyebrow {
+  font: 700 10px/1 var(--font-sans); letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--mint); margin-bottom: var(--space-3);
+}
 
 /* ── DISCOUNT HERO CARD ── */
 .discount-hero {
@@ -268,6 +274,10 @@ table.ref-table tbody tr:hover { background: var(--bg); }
 .tm-half  { background: var(--light-green); color: var(--grove); border: 1.5px solid rgba(87,130,60,.22); }
 .tm-full  { background: var(--white); color: var(--muted); border: 1.5px solid var(--border); }
 .tm-queued{ background: rgba(159,225,203,.12); color: var(--mint); border: 1.5px dashed rgba(159,225,203,.38); }
+/* Hero dark background overrides */
+.discount-hero .tm-half   { background: rgba(255,255,255,.12); color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.22); }
+.discount-hero .tm-full   { background: rgba(255,255,255,.06); color: rgba(255,255,255,.35); border-color: rgba(255,255,255,.12); }
+.discount-hero .tl-leg    { color: rgba(255,255,255,.5); }
 .tm-label { font: 400 10px/1 var(--font-sans); color: var(--muted); }
 .tm-label.now { color: var(--grove); font-weight: 700; }
 .tl-legend { display: flex; gap: var(--space-6); margin-top: var(--space-4); flex-wrap: wrap; }
@@ -444,7 +454,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
 
     <div class="page-header">
       <h1>Refer &amp; Earn</h1>
-      <p>Share REI Grove — earn up to 100% off your subscription for every person you bring in.</p>
+      <p>Share REI Grove earn up to 100% off your subscription for every person you bring in.</p>
     </div>
 
     <!-- ══ PRE-ENROLLMENT VIEW (shown until user copies link for first time) ══ -->
@@ -462,7 +472,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
           <div class="how-card">
             <div class="how-num">2</div>
             <div class="how-title">They join a paid plan</div>
-            <div class="how-desc">The moment your referral upgrades, your <strong>50% discount starts immediately</strong> — no waiting period. It accrues one month at a time, up to 3 months total.</div>
+            <div class="how-desc">The moment your referral upgrades, your <strong>50% discount starts immediately</strong> no waiting period. It accrues one month at a time, up to 3 months total.</div>
           </div>
           <div class="how-card">
             <div class="how-num">3</div>
@@ -481,7 +491,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
             </div>
             <span class="card-title">Your Referral Link</span>
           </div>
-          <div class="card-subtitle">Copy your unique link to get started — your dashboard populates as referrals come in.</div>
+          <div class="card-subtitle">Copy your unique link to get started your dashboard populates as referrals come in.</div>
         </div>
         <div class="link-row">
           <input class="link-field" id="ref-url-pre" type="text" value="reigrove.com/ref/jordan123" readonly aria-label="Your unique referral link">
@@ -516,12 +526,12 @@ table.ref-table tbody tr:hover { background: var(--bg); }
           <span class="card-title">Frequently Asked Questions</span>
         </div>
         <div id="faq-pre">
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Do discounts stack when I refer multiple people?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Yes. Each active referral contributes 50% off while they remain subscribed (up to 3 months each). Two active referrals at once combine to 100% off — completely free. The cap is 100%; no cash or credits beyond free access. Additional referrals queue and activate automatically as earlier ones expire.</div></div>
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">When exactly does my discount start?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">The moment your referral upgrades to a paid plan — no waiting period. Your 50% discount activates on your next billing cycle and accrues one month at a time for as long as they stay subscribed, up to 3 months total.</div></div>
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if my referral cancels before 3 months?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">You keep every month of discount you've already earned — those are yours. Only future months stop. So if your referral cancels after month 2, you've already received 2 months of 50% off and those stay applied.</div></div>
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">How long does the 50% discount last per referral?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Up to 3 months per referral — one month earned for each month they stay on a paid plan. Once they hit month 3 (or cancel), that referral's contribution is complete. Your billing returns to normal after unless other referrals are active or queued.</div></div>
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">I'm on an annual plan — how does the discount apply?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Annual subscribers receive credits that apply at their next renewal. Each month a referral is active earns ~$8.33 in credit (50% of the monthly equivalent). A full 3-month referral = ~$25 credit. Credits accumulate and surplus carries forward.</div></div>
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Is there a limit to how many people I can refer?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No hard cap. Up to 10 referral discount months can be credited per calendar month — any beyond that queue for the next month. The 100% maximum discount cap applies regardless of how many referrals are simultaneously active.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Do discounts stack when I refer multiple people?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Yes. Each active referral contributes 50% off while they remain subscribed (up to 3 months each). Two active referrals at once combine to 100% off completely free. The cap is 100%; no cash or credits beyond free access. Additional referrals queue and activate automatically as earlier ones expire.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">When exactly does my discount start?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">The moment your referral upgrades to a paid plan no waiting period. Your 50% discount activates on your next billing cycle and accrues one month at a time for as long as they stay subscribed, up to 3 months total.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if my referral cancels before 3 months?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">You keep every month of discount you've already earned those are yours. Only future months stop. So if your referral cancels after month 2, you've already received 2 months of 50% off and those stay applied.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">How long does the 50% discount last per referral?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Up to 3 months per referral one month earned for each month they stay on a paid plan. Once they hit month 3 (or cancel), that referral's contribution is complete. Your billing returns to normal after unless other referrals are active or queued.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">I'm on an annual plan how does the discount apply?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Annual subscribers receive credits that apply at their next renewal. Each month a referral is active earns ~$8.33 in credit (50% of the monthly equivalent). A full 3-month referral = ~$25 credit. Credits accumulate and surplus carries forward.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Is there a limit to how many people I can refer?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No hard cap. Up to 10 referral discount months can be credited per calendar month any beyond that queue for the next month. The 100% maximum discount cap applies regardless of how many referrals are simultaneously active.</div></div>
         </div>
       </div>
 
@@ -534,15 +544,14 @@ table.ref-table tbody tr:hover { background: var(--bg); }
     <div class="discount-hero" id="dh">
       <div class="dh-inner">
         <div class="dh-left">
-          <div class="dh-eyebrow dark section-label" id="dh-eyebrow">Active Discount</div>
+          <div class="dh-eyebrow" id="dh-eyebrow">Active Discount</div>
           <div class="dh-amount" id="dh-amount">50% <sub>off</sub></div>
-          <div class="dh-desc" id="dh-desc">Your next 2 months are billed at <strong>$10/mo</strong>. Discount expires in <strong>61 days</strong>.</div>
-          <div class="dh-progress-header"><span>0 referrals</span><span>1 referral — 50% off</span><span>2 referrals — FREE</span></div>
-          <div class="dh-track"><div class="dh-fill" id="dh-bar" style="width:50%"></div></div>
-          <div class="dh-milestones">
-            <span class="ms hit">● 0</span>
-            <span class="ms hit" id="ms1">● 1 referral</span>
-            <span class="ms" id="ms2">● 2 referrals</span>
+          <div class="timeline-scroll" id="tl-months-hero" style="margin-top:var(--space-5);padding-bottom:0"></div>
+          <div class="tl-legend" style="margin-top:var(--space-4)">
+            <div class="tl-leg"><div class="tl-dot" style="background:linear-gradient(135deg,#9FE1CB,#C0DD97)"></div> 100% off</div>
+            <div class="tl-leg"><div class="tl-dot" style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.22)"></div> 50% off</div>
+            <div class="tl-leg"><div class="tl-dot" style="background:rgba(159,225,203,.12);border:1.5px dashed rgba(159,225,203,.38)"></div> Queued</div>
+            <div class="tl-leg"><div class="tl-dot" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12)"></div> Full price</div>
           </div>
         </div>
         <div class="dh-right">
@@ -550,7 +559,6 @@ table.ref-table tbody tr:hover { background: var(--bg); }
             <div class="bc-label">Next Bill</div>
             <div class="bc-price" id="bc-price">$10 <span>/mo</span></div>
             <div class="bc-was" id="bc-was">was $20/mo</div>
-            <div class="bc-save" id="bc-save">Saving $10/mo</div>
           </div>
           <div class="queue-pill" id="queue-pill" style="display:none">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.5 7.5H22l-6.5 4.5 2.5 7.5L12 17l-6.5 4.5L8 14 1.5 9.5H9.5L12 2z" fill="currentColor"/></svg>
@@ -569,7 +577,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
           </div>
           <span class="card-title">Your Referral Link</span>
         </div>
-        <div class="card-subtitle">Your 50% discount starts the moment each referral upgrades — and accrues up to 3 months per person.</div>
+        <div class="card-subtitle">Your 50% discount starts the moment each referral upgrades and accrues up to 3 months per person.</div>
       </div>
       <div class="link-row">
         <input class="link-field" id="ref-url" type="text" value="reigrove.com/ref/jordan123" readonly aria-label="Your unique referral link">
@@ -636,20 +644,8 @@ table.ref-table tbody tr:hover { background: var(--bg); }
       <div id="ref-list"></div>
     </div>
 
-    <!-- ── TIMELINE ── -->
-    <div class="tinted" id="timeline-wrap">
-      <div class="section-label">Discount Timeline</div>
-      <div class="card-subtitle" style="margin-bottom:0">How your earned vouchers apply across upcoming months.</div>
-      <div class="timeline-scroll" id="tl-months"></div>
-      <div class="tl-legend">
-        <div class="tl-leg"><div class="tl-dot" style="background:linear-gradient(135deg,#9FE1CB,#C0DD97)"></div> 100% off (free)</div>
-        <div class="tl-leg"><div class="tl-dot" style="background:var(--light-green);border:1.5px solid rgba(87,130,60,.25)"></div> 50% off</div>
-        <div class="tl-leg"><div class="tl-dot" style="background:rgba(159,225,203,.12);border:1.5px dashed rgba(159,225,203,.38)"></div> Queued / pending</div>
-        <div class="tl-leg"><div class="tl-dot" style="background:var(--white);border:1.5px solid var(--border)"></div> Full price ($20)</div>
-      </div>
-    </div>
 
-    <!-- ── HOW IT WORKS (enrolled — bottom) ── -->
+    <!-- ── HOW IT WORKS (enrolled bottom) ── -->
     <div style="margin-bottom:var(--space-5)">
       <div class="section-label">How It Works</div>
       <div class="how-grid">
@@ -661,7 +657,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
         <div class="how-card">
           <div class="how-num">2</div>
           <div class="how-title">They join a paid plan</div>
-          <div class="how-desc">The moment your referral upgrades, your <strong>50% discount starts immediately</strong> — no waiting period. It accrues one month at a time, up to 3 months total.</div>
+          <div class="how-desc">The moment your referral upgrades, your <strong>50% discount starts immediately</strong> no waiting period. It accrues one month at a time, up to 3 months total.</div>
         </div>
         <div class="how-card">
           <div class="how-num">3</div>
@@ -671,7 +667,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
       </div>
     </div>
 
-    <!-- ── FAQ (enrolled — bottom) ── -->
+    <!-- ── FAQ (enrolled bottom) ── -->
     <div class="card" style="margin-bottom:var(--space-5)">
       <div class="card-title-row" style="margin-bottom:20px">
         <div class="icon-well">
@@ -680,13 +676,13 @@ table.ref-table tbody tr:hover { background: var(--bg); }
         <span class="card-title">Frequently Asked Questions</span>
       </div>
       <div id="faq-enrolled">
-        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Do discounts stack when I refer multiple people?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Yes. Each active referral contributes 50% off while they remain subscribed (up to 3 months each). Two active referrals at once combine to 100% off — completely free. The cap is 100%; no cash or credits beyond free access. Additional referrals queue and activate automatically as earlier ones expire.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">When exactly does my discount start?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">The moment your referral upgrades to a paid plan — no waiting period. Your 50% discount activates on your next billing cycle and accrues one month at a time for as long as they stay subscribed, up to 3 months total.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if my referral cancels before 3 months?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">You keep every month of discount you've already earned — those are yours. Only future months stop. So if your referral cancels after month 2, you've already received 2 months of 50% off and those stay applied.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">How long does the 50% discount last per referral?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Up to 3 months per referral — one month earned for each month they stay on a paid plan. Once they hit month 3 (or cancel), that referral's contribution is complete. Your billing returns to normal after unless other referrals are active or queued.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Do discounts stack when I refer multiple people?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Yes. Each active referral contributes 50% off while they remain subscribed (up to 3 months each). Two active referrals at once combine to 100% off completely free. The cap is 100%; no cash or credits beyond free access. Additional referrals queue and activate automatically as earlier ones expire.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">When exactly does my discount start?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">The moment your referral upgrades to a paid plan no waiting period. Your 50% discount activates on your next billing cycle and accrues one month at a time for as long as they stay subscribed, up to 3 months total.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if my referral cancels before 3 months?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">You keep every month of discount you've already earned those are yours. Only future months stop. So if your referral cancels after month 2, you've already received 2 months of 50% off and those stay applied.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">How long does the 50% discount last per referral?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Up to 3 months per referral one month earned for each month they stay on a paid plan. Once they hit month 3 (or cancel), that referral's contribution is complete. Your billing returns to normal after unless other referrals are active or queued.</div></div>
         <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if I cancel my own subscription?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Any currently-active discount months continue through their remaining period. Queued vouchers are forfeited if you cancel. If you reactivate within 6 months, unexpired queued vouchers are reinstated automatically.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">I'm on an annual plan — how does the discount apply?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Annual subscribers receive credits that apply at their next renewal. Each month a referral is active earns ~$8.33 in credit (50% of the monthly equivalent). A full 3-month referral = ~$25 credit. Credits accumulate and surplus carries forward.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Is there a limit to how many people I can refer?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No hard cap. Up to 10 referral discount months can be credited per calendar month — any beyond that queue for the next month. The 100% maximum discount cap applies regardless of how many referrals are simultaneously active.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">I'm on an annual plan how does the discount apply?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Annual subscribers receive credits that apply at their next renewal. Each month a referral is active earns ~$8.33 in credit (50% of the monthly equivalent). A full 3-month referral = ~$25 credit. Credits accumulate and surplus carries forward.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Is there a limit to how many people I can refer?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No hard cap. Up to 10 referral discount months can be credited per calendar month any beyond that queue for the next month. The 100% maximum discount cap applies regardless of how many referrals are simultaneously active.</div></div>
       </div>
     </div>
 
@@ -745,12 +741,12 @@ const S = {
     refs:[], tl:'empty'
   },
   'one-pending':{
-    amount:'50% <sub>off</sub>', eyebrow:'Active Discount — Month 1 of 3', barW:'50%',
-    desc:'Your 50% discount is <strong>active now</strong>. Accrues one month at a time — up to 3 months total.',
+    amount:'50% <sub>off</sub>', eyebrow:'Active Discount Month 1 of 3', barW:'50%',
+    desc:'Your 50% discount is <strong>active now</strong>. Accrues one month at a time up to 3 months total.',
     price:'$10', was:'was $20/mo', save:'Saving $10/mo',
     queue:null, m1:true, m2:false,
     clicks:12, total:1, saved:'$10', savedSub:'in subscription savings',
-    refs:[{name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:1,monthsEarned:1,voucher:'50% off — 1 of 3 mo earned'}],
+    refs:[{name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:1,monthsEarned:1,voucher:'50% off 1 of 3 mo earned'}],
     tl:'one-pending'
   },
   'one-completed':{
@@ -761,14 +757,14 @@ const S = {
     clicks:24, total:3, saved:'$10', savedSub:'in subscription savings',
     refs:[
       {name:'Alicia M.',date:'Mar 1, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
-      {name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:2,monthsEarned:2,voucher:'50% off — 2 of 3 mo earned'},
-      {name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:1,monthsEarned:1,voucher:'50% off — 1 of 3 mo earned'},
+      {name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:2,monthsEarned:2,voucher:'50% off 2 of 3 mo earned'},
+      {name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:1,monthsEarned:1,voucher:'50% off 1 of 3 mo earned'},
     ], tl:'one-completed'
   },
   'two-completed':{
-    amount:'FREE <sub style="font-size:14px;color:rgba(255,255,255,.45)"></sub>', eyebrow:'100% Off — Free Access', barW:'100%',
+    amount:'FREE <sub style="font-size:14px;color:rgba(255,255,255,.45)"></sub>', eyebrow:'100% Off Free Access', barW:'100%',
     desc:'You have 2 completed referrals. REI Grove is completely <strong>free</strong> for the next 3 months.',
-    price:'$0', was:'was $20/mo', save:'Saving $20/mo — free!',
+    price:'$0', was:'was $20/mo', save:'Saving $20/mo free!',
     queue:null, m1:true, m2:true,
     clicks:38, total:2, saved:'$40', savedSub:'in subscription savings',
     refs:[
@@ -778,9 +774,9 @@ const S = {
   },
   'three-completed':{
     amount:'FREE <sub style="font-size:14px;color:rgba(255,255,255,.45)"></sub>', eyebrow:'Free + 1 Voucher Queued', barW:'100%',
-    desc:'You\'re free now — plus a <strong>3rd voucher is queued</strong> for when your current window ends.',
-    price:'$0', was:'was $20/mo', save:'Saving $20/mo — free!',
-    queue:'1 voucher queued — 50% off for 3 mo', m1:true, m2:true,
+    desc:'You\'re free now plus a <strong>3rd voucher is queued</strong> for when your current window ends.',
+    price:'$0', was:'was $20/mo', save:'Saving $20/mo free!',
+    queue:'1 voucher queued 50% off for 3 mo', m1:true, m2:true,
     clicks:51, total:3, saved:'$60', savedSub:'in subscription savings',
     refs:[
       {name:'Alicia M.',date:'Mar 1, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
@@ -789,25 +785,25 @@ const S = {
     ], tl:'three-completed'
   },
   mixed:{
-    amount:'50% <sub>off</sub>', eyebrow:'Active Discount — More Earning', barW:'50%',
-    desc:'1 discount active. 1 more referral earning — they go <strong>free</strong>.',
+    amount:'50% <sub>off</sub>', eyebrow:'Active Discount More Earning', barW:'50%',
+    desc:'1 discount active. 1 more referral earning they go <strong>free</strong>.',
     price:'$10', was:'was $20/mo', save:'Saving $10/mo',
     queue:'1 voucher pending confirmation', m1:true, m2:false,
     clicks:34, total:4, saved:'$20', savedSub:'in subscription savings',
     refs:[
       {name:'Alicia M.',date:'Mar 1, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
-      {name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:2,monthsEarned:2,voucher:'50% off — 2 of 3 mo earned'},
-      {name:'Keisha W.',date:'May 3, 2026',status:'active',prog:1,monthsEarned:1,voucher:'50% off — 1 of 3 mo earned'},
-      {name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:2,monthsEarned:2,voucher:'50% off — 2 of 3 mo earned'},
+      {name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:2,monthsEarned:2,voucher:'50% off 2 of 3 mo earned'},
+      {name:'Keisha W.',date:'May 3, 2026',status:'active',prog:1,monthsEarned:1,voucher:'50% off 1 of 3 mo earned'},
+      {name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:2,monthsEarned:2,voucher:'50% off 2 of 3 mo earned'},
     ], tl:'mixed'
   },
   cancelled:{
-    amount:'50% <sub>off</sub>', eyebrow:'Active Discount — Referral Cancelled Early', barW:'50%',
-    desc:'Your referral cancelled early. You already earned <strong>2 months of 50% off</strong> — those are applied to your account.',
+    amount:'50% <sub>off</sub>', eyebrow:'Active Discount Referral Cancelled Early', barW:'50%',
+    desc:'Your referral cancelled early. You already earned <strong>2 months of 50% off</strong> those are applied to your account.',
     price:'$10', was:'was $20/mo', save:'1 month remaining',
     queue:null, m1:true, m2:false,
     clicks:9, total:1, saved:'$20', savedSub:'in subscription savings',
-    refs:[{name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:2,monthsEarned:2,voucher:'50% off — 2 of 3 mo earned'}],
+    refs:[{name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:2,monthsEarned:2,voucher:'50% off 2 of 3 mo earned'}],
     tl:'one-completed'
   }
 };
@@ -864,18 +860,14 @@ function go(name) {
   const d = S[name];
 
   // Discount hero
-  document.getElementById('dh-eyebrow').textContent = d.eyebrow;
+  document.getElementById('dh-eyebrow').textContent = 'Active Discount';
   document.getElementById('dh-amount').innerHTML = d.amount;
-  document.getElementById('dh-desc').innerHTML = d.desc;
-  document.getElementById('dh-bar').style.width = d.barW;
   document.getElementById('bc-price').innerHTML = d.price + (d.price !== '$0' ? ' <span>/mo</span>' : ' <span style="font-size:13px;color:rgba(255,255,255,.4)">/mo</span>');
   document.getElementById('bc-was').textContent = d.was;
-  document.getElementById('bc-save').textContent = d.save;
-  document.getElementById('ms1').className = 'ms' + (d.m1 ? ' hit' : '');
-  document.getElementById('ms2').className = 'ms' + (d.m2 ? ' hit' : '');
   const qp = document.getElementById('queue-pill');
   if (d.queue) { qp.style.display = 'inline-flex'; document.getElementById('queue-text').textContent = d.queue; }
   else { qp.style.display = 'none'; }
+  renderTimeline(TL[d.tl], 'tl-months-hero');
 
   // Stats
   document.getElementById('s-clicks').textContent = d.clicks;
@@ -931,15 +923,16 @@ function renderRefs(refs) {
       progHTML = `<div class="prog"><div class="prog-track"><div class="prog-fill cancel" style="width:${pct}%"></div></div><span class="prog-label" style="color:var(--error)">${earned} of 3 mo</span></div>`;
     }
     const isQueued = r.voucher && r.voucher.includes('queued');
-    const vHTML = r.voucher ? `<span class="voucher-tag${isQueued?' queued':''}">${isQueued?'⏳ ':''}${r.voucher}</span>` : `<span style="color:var(--muted);font-size:12px">—</span>`;
+    const vHTML = r.voucher ? `<span class="voucher-tag${isQueued?' queued':''}">${isQueued?'⏳ ':''}${r.voucher}</span>` : `<span style="color:var(--muted);font-size:12px"></span>`;
     html += `<tr><td><div class="ref-name">${r.name}</div></td><td><div class="ref-date">${r.date}</div></td><td><span class="badge ${b.cls}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none">${b.icon}</svg> ${b.label}</span></td><td>${progHTML}</td><td>${vHTML}</td></tr>`;
   });
   html += '</tbody></table>';
   list.innerHTML = html;
 }
 
-function renderTimeline(months) {
-  const wrap = document.getElementById('tl-months');
+function renderTimeline(months, targetId) {
+  const wrap = document.getElementById(targetId || 'tl-months-hero');
+  if (!wrap) return;
   const typeMap = {free:'tm-free',half:'tm-half',full:'tm-full',queued:'tm-queued'};
   const labelMap = {free:'FREE',half:'50%',full:'$20',queued:'Pend.'};
   wrap.innerHTML = months.map(m =>
