@@ -785,10 +785,10 @@ const S = {
     ], tl:'three-completed'
   },
   mixed:{
-    amount:'50% <sub>off</sub>', eyebrow:'Active Discount More Earning', barW:'50%',
+    amount:'FREE', eyebrow:'Active Discount', barW:'100%',
     desc:'1 discount active. 1 more referral earning they go <strong>free</strong>.',
-    price:'$10', was:'was $20/mo', save:'Saving $10/mo',
-    queue:'1 voucher pending confirmation', m1:true, m2:false,
+    price:'$0', was:'was $20/mo', save:'',
+    queue:null, m1:true, m2:true,
     clicks:34, total:4, saved:'$20', savedSub:'in subscription savings',
     refs:[
       {name:'Alicia M.',date:'Mar 1, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
@@ -813,7 +813,7 @@ const TL = {
     {m:'Jun',t:'full'},{m:'Jul',t:'full'},{m:'Aug',t:'full'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
   ],
   'one-pending':[
-    {m:'Jun',t:'full'},{m:'Jul',t:'queued',l:'Pend'},{m:'Aug',t:'queued',l:'Pend'},{m:'Sep',t:'queued',l:'Pend'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
+    {m:'Jun',t:'half',l:'50%'},{m:'Jul',t:'half',l:'50%'},{m:'Aug',t:'half',l:'50%'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
   ],
   'one-completed':[
     {m:'Jun',t:'half',l:'50%'},{m:'Jul',t:'half',l:'50%'},{m:'Aug',t:'half',l:'50%'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
@@ -825,7 +825,7 @@ const TL = {
     {m:'Jun',t:'free',l:'FREE'},{m:'Jul',t:'free',l:'FREE'},{m:'Aug',t:'free',l:'FREE'},{m:'Sep',t:'half',l:'50%'},{m:'Oct',t:'half',l:'50%'},{m:'Nov',t:'half',l:'50%'}
   ],
   mixed:[
-    {m:'Jun',t:'half',l:'50%'},{m:'Jul',t:'half',l:'50%'},{m:'Aug',t:'half',l:'50%'},{m:'Sep',t:'queued',l:'Pend'},{m:'Oct',t:'queued',l:'Pend'},{m:'Nov',t:'queued',l:'Pend'}
+    {m:'Jun',t:'free',l:'FREE'},{m:'Jul',t:'free',l:'FREE'},{m:'Aug',t:'half',l:'50%'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
   ],
   cancelled:[
     {m:'Jun',t:'full'},{m:'Jul',t:'full'},{m:'Aug',t:'full'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
