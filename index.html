@@ -671,6 +671,25 @@ table.ref-table tbody tr:hover { background: var(--bg); }
       </div>
     </div>
 
+    <!-- ── FAQ (enrolled — bottom) ── -->
+    <div class="card" style="margin-bottom:var(--space-5)">
+      <div class="card-title-row" style="margin-bottom:20px">
+        <div class="icon-well">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#57823C" opacity=".2"/><path d="M9.5 9.5a2.5 2.5 0 0 1 4.95.6c0 1.5-1.5 2.4-2.45 2.9V14" stroke="#57823C" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="17" r=".9" fill="#57823C"/></svg>
+        </div>
+        <span class="card-title">Frequently Asked Questions</span>
+      </div>
+      <div id="faq-enrolled">
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Do discounts stack when I refer multiple people?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Yes. Each active referral contributes 50% off while they remain subscribed (up to 3 months each). Two active referrals at once combine to 100% off — completely free. The cap is 100%; no cash or credits beyond free access. Additional referrals queue and activate automatically as earlier ones expire.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">When exactly does my discount start?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">The moment your referral upgrades to a paid plan — no waiting period. Your 50% discount activates on your next billing cycle and accrues one month at a time for as long as they stay subscribed, up to 3 months total.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if my referral cancels before 3 months?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">You keep every month of discount you've already earned — those are yours. Only future months stop. So if your referral cancels after month 2, you've already received 2 months of 50% off and those stay applied.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">How long does the 50% discount last per referral?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Up to 3 months per referral — one month earned for each month they stay on a paid plan. Once they hit month 3 (or cancel), that referral's contribution is complete. Your billing returns to normal after unless other referrals are active or queued.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if I cancel my own subscription?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Any currently-active discount months continue through their remaining period. Queued vouchers are forfeited if you cancel. If you reactivate within 6 months, unexpired queued vouchers are reinstated automatically.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">I'm on an annual plan — how does the discount apply?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Annual subscribers receive credits that apply at their next renewal. Each month a referral is active earns ~$8.33 in credit (50% of the monthly equivalent). A full 3-month referral = ~$25 credit. Credits accumulate and surplus carries forward.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Is there a limit to how many people I can refer?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No hard cap. Up to 10 referral discount months can be credited per calendar month — any beyond that queue for the next month. The 100% maximum discount cap applies regardless of how many referrals are simultaneously active.</div></div>
+      </div>
+    </div>
+
     </div><!-- /enrolled-view -->
 
   </main>
