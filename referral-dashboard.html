@@ -235,7 +235,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
 
 /* Badges */
 .badge { display: inline-flex; align-items: center; gap: var(--space-1); padding: 4px 10px; border-radius: 999px; font: 600 11px/1 var(--font-sans); white-space: nowrap; }
-.badge-confirmed { background: var(--success-bg); color: var(--success); }
+.badge-completed { background: var(--success-bg); color: var(--success); }
 .badge-active    { background: var(--mint-100); color: #1a6b52; }
 .badge-cancelled { background: var(--error-bg); color: var(--error); }
 .badge-expired { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
@@ -391,9 +391,9 @@ table.ref-table tbody tr:hover { background: var(--bg); }
   <button class="scenario-btn active" onclick="go('not-enrolled')">Not enrolled yet</button>
   <button class="scenario-btn" onclick="go('empty')">No referrals yet</button>
   <button class="scenario-btn" onclick="go('one-pending')">1 active (month 1 of 3)</button>
-  <button class="scenario-btn" onclick="go('one-confirmed')">1 confirmed → 50% off</button>
-  <button class="scenario-btn" onclick="go('two-confirmed')">2 confirmed → FREE</button>
-  <button class="scenario-btn" onclick="go('three-confirmed')">3 confirmed → stacked</button>
+  <button class="scenario-btn" onclick="go('one-completed')">1 completed → 50% off</button>
+  <button class="scenario-btn" onclick="go('two-completed')">2 completed → FREE</button>
+  <button class="scenario-btn" onclick="go('three-completed')">3 completed → stacked</button>
   <button class="scenario-btn" onclick="go('mixed')">Mixed states</button>
   <button class="scenario-btn" onclick="go('cancelled')">Referral cancelled</button>
 </div>
@@ -628,7 +628,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
         </div>
         <div class="filter-chips" id="filter-chips">
           <button class="chip active" onclick="filter(this,'all')">All</button>
-          <button class="chip" onclick="filter(this,'confirmed')">Complete</button>
+          <button class="chip" onclick="filter(this,'completed')">Complete</button>
           <button class="chip" onclick="filter(this,'active')">Active</button>
           <button class="chip" onclick="filter(this,'cancelled')">Cancelled</button>
         </div>
@@ -753,49 +753,49 @@ const S = {
     refs:[{name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:1,monthsEarned:1,voucher:'50% off — 1 of 3 mo earned'}],
     tl:'one-pending'
   },
-  'one-confirmed':{
+  'one-completed':{
     amount:'50% <sub>off</sub>', eyebrow:'Active Discount', barW:'50%',
     desc:'Your next 2 months are billed at <strong>$10/mo</strong>. Discount expires in <strong>61 days</strong>.',
     price:'$10', was:'was $20/mo', save:'Saving $10/mo',
     queue:null, m1:true, m2:false,
     clicks:24, total:3, saved:'$10', savedSub:'in subscription savings',
     refs:[
-      {name:'Alicia M.',date:'Mar 1, 2026',status:'confirmed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
+      {name:'Alicia M.',date:'Mar 1, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
       {name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:2,monthsEarned:2,voucher:'50% off — 2 of 3 mo earned'},
       {name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:1,monthsEarned:1,voucher:'50% off — 1 of 3 mo earned'},
-    ], tl:'one-confirmed'
+    ], tl:'one-completed'
   },
-  'two-confirmed':{
+  'two-completed':{
     amount:'FREE <sub style="font-size:14px;color:rgba(255,255,255,.45)"></sub>', eyebrow:'100% Off — Free Access', barW:'100%',
-    desc:'You have 2 confirmed referrals. REI Grove is completely <strong>free</strong> for the next 3 months.',
+    desc:'You have 2 completed referrals. REI Grove is completely <strong>free</strong> for the next 3 months.',
     price:'$0', was:'was $20/mo', save:'Saving $20/mo — free!',
     queue:null, m1:true, m2:true,
     clicks:38, total:2, saved:'$40', savedSub:'in subscription savings',
     refs:[
-      {name:'Alicia M.',date:'Mar 1, 2026',status:'confirmed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
-      {name:'Priya S.',date:'Mar 14, 2026',status:'confirmed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
-    ], tl:'two-confirmed'
+      {name:'Alicia M.',date:'Mar 1, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
+      {name:'Priya S.',date:'Mar 14, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
+    ], tl:'two-completed'
   },
-  'three-confirmed':{
+  'three-completed':{
     amount:'FREE <sub style="font-size:14px;color:rgba(255,255,255,.45)"></sub>', eyebrow:'Free + 1 Voucher Queued', barW:'100%',
     desc:'You\'re free now — plus a <strong>3rd voucher is queued</strong> for when your current window ends.',
     price:'$0', was:'was $20/mo', save:'Saving $20/mo — free!',
     queue:'1 voucher queued — 50% off for 3 mo', m1:true, m2:true,
     clicks:51, total:3, saved:'$60', savedSub:'in subscription savings',
     refs:[
-      {name:'Alicia M.',date:'Mar 1, 2026',status:'confirmed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
-      {name:'Priya S.',date:'Mar 14, 2026',status:'confirmed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
-      {name:'Tyler R.',date:'Apr 2, 2026',status:'confirmed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo (queued)'},
-    ], tl:'three-confirmed'
+      {name:'Alicia M.',date:'Mar 1, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
+      {name:'Priya S.',date:'Mar 14, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
+      {name:'Tyler R.',date:'Apr 2, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo (queued)'},
+    ], tl:'three-completed'
   },
   mixed:{
     amount:'50% <sub>off</sub>', eyebrow:'Active Discount — More Earning', barW:'50%',
-    desc:'1 confirmed discount active. 1 more referral pending — confirm them to go <strong>free</strong>.',
+    desc:'1 discount active. 1 more referral earning — they go <strong>free</strong>.',
     price:'$10', was:'was $20/mo', save:'Saving $10/mo',
     queue:'1 voucher pending confirmation', m1:true, m2:false,
     clicks:34, total:4, saved:'$20', savedSub:'in subscription savings',
     refs:[
-      {name:'Alicia M.',date:'Mar 1, 2026',status:'confirmed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
+      {name:'Alicia M.',date:'Mar 1, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
       {name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:2,monthsEarned:2,voucher:'50% off — 2 of 3 mo earned'},
       {name:'Keisha W.',date:'May 3, 2026',status:'active',prog:1,monthsEarned:1,voucher:'50% off — 1 of 3 mo earned'},
       {name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:2,monthsEarned:2,voucher:'50% off — 2 of 3 mo earned'},
@@ -808,7 +808,7 @@ const S = {
     queue:null, m1:true, m2:false,
     clicks:9, total:1, saved:'$20', savedSub:'in subscription savings',
     refs:[{name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:2,monthsEarned:2,voucher:'50% off — 2 of 3 mo earned'}],
-    tl:'one-confirmed'
+    tl:'one-completed'
   }
 };
 
@@ -819,13 +819,13 @@ const TL = {
   'one-pending':[
     {m:'Jun',t:'full'},{m:'Jul',t:'queued',l:'Pend'},{m:'Aug',t:'queued',l:'Pend'},{m:'Sep',t:'queued',l:'Pend'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
   ],
-  'one-confirmed':[
+  'one-completed':[
     {m:'Jun',t:'half',l:'50%'},{m:'Jul',t:'half',l:'50%'},{m:'Aug',t:'half',l:'50%'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
   ],
-  'two-confirmed':[
+  'two-completed':[
     {m:'Jun',t:'free',l:'FREE'},{m:'Jul',t:'free',l:'FREE'},{m:'Aug',t:'free',l:'FREE'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
   ],
-  'three-confirmed':[
+  'three-completed':[
     {m:'Jun',t:'free',l:'FREE'},{m:'Jul',t:'free',l:'FREE'},{m:'Aug',t:'free',l:'FREE'},{m:'Sep',t:'half',l:'50%'},{m:'Oct',t:'half',l:'50%'},{m:'Nov',t:'half',l:'50%'}
   ],
   mixed:[
@@ -903,7 +903,7 @@ function renderRefs(refs) {
   const shown = currentFilter === 'all' ? refs : refs.filter(r => r.status === currentFilter);
 
   if (!refs.length) {
-    list.innerHTML = `<div class="empty-state"><div class="empty-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="8" r="4" fill="#57823C" opacity=".5"/><path d="M3 21c0-3.866 3.134-7 7-7h3" stroke="#57823C" stroke-width="1.8" stroke-linecap="round"/><circle cx="18" cy="17" r="4" fill="#57823C" opacity=".25"/><path d="M16.5 17l1.2 1.2 2-2" stroke="#57823C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="empty-title">No referrals yet</div><div class="empty-desc">Share your link above and start earning. Each confirmed referral is worth 50% off your bill.</div><button class="btn-primary" onclick="copyLink()" style="margin:0 auto;display:inline-flex">Copy my link</button></div>`;
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="8" r="4" fill="#57823C" opacity=".5"/><path d="M3 21c0-3.866 3.134-7 7-7h3" stroke="#57823C" stroke-width="1.8" stroke-linecap="round"/><circle cx="18" cy="17" r="4" fill="#57823C" opacity=".25"/><path d="M16.5 17l1.2 1.2 2-2" stroke="#57823C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="empty-title">No referrals yet</div><div class="empty-desc">Share your link above and start earning. Each completed referral earns you 50% off your bill.</div><button class="btn-primary" onclick="copyLink()" style="margin:0 auto;display:inline-flex">Copy my link</button></div>`;
     return;
   }
   if (!shown.length) {
@@ -912,7 +912,7 @@ function renderRefs(refs) {
   }
 
   const badgeMap = {
-    confirmed: {cls:'badge-confirmed', icon:'<path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>', label:'Complete'},
+    completed: {cls:'badge-completed', icon:'<path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>', label:'Complete'},
     active:    {cls:'badge-active',    icon:'<circle cx="12" cy="12" r="4" fill="currentColor"/>',                                                                  label:'Active'},
     cancelled: {cls:'badge-cancelled', icon:'<path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',                      label:'Cancelled'},
   };
@@ -923,7 +923,7 @@ function renderRefs(refs) {
     const earned = r.monthsEarned || 0;
     const pct = Math.round((earned / 3) * 100);
     let progHTML;
-    if (r.status === 'confirmed') {
+    if (r.status === 'completed') {
       progHTML = `<div class="prog"><div class="prog-track"><div class="prog-fill done" style="width:100%"></div></div><span class="prog-label" style="color:var(--success);font-weight:600">3 of 3 ✓</span></div>`;
     } else if (r.status === 'active') {
       progHTML = `<div class="prog"><div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div><span class="prog-label">${earned} of 3 mo</span></div>`;
