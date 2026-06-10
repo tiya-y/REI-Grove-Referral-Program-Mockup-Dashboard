@@ -649,6 +649,28 @@ table.ref-table tbody tr:hover { background: var(--bg); }
       </div>
     </div>
 
+    <!-- ── HOW IT WORKS (enrolled — bottom) ── -->
+    <div style="margin-bottom:var(--space-5)">
+      <div class="section-label">How It Works</div>
+      <div class="how-grid">
+        <div class="how-card">
+          <div class="how-num">1</div>
+          <div class="how-title">Copy your link</div>
+          <div class="how-desc">Every member gets a unique referral link. Share it with investors, landlords, or anyone who might benefit from REI Grove.</div>
+        </div>
+        <div class="how-card">
+          <div class="how-num">2</div>
+          <div class="how-title">They join a paid plan</div>
+          <div class="how-desc">The moment your referral upgrades, your <strong>50% discount starts immediately</strong> — no waiting period. It accrues one month at a time, up to 3 months total.</div>
+        </div>
+        <div class="how-card">
+          <div class="how-num">3</div>
+          <div class="how-title">Keep what you earn</div>
+          <div class="how-desc">If they cancel early, you keep the months already earned. Refer 2 active people at once and your subscription is <strong>free</strong>. Extra referrals queue automatically.</div>
+        </div>
+      </div>
+    </div>
+
     </div><!-- /enrolled-view -->
 
   </main>
@@ -705,7 +727,7 @@ const S = {
   },
   'one-pending':{
     amount:'50% <sub>off</sub>', eyebrow:'Active Discount — Month 1 of 3', barW:'50%',
-    desc:'Marcus upgraded last month. Your 50% discount is <strong>live now</strong> and continues for each month they stay subscribed, up to 3 months.',
+    desc:'Your 50% discount is <strong>active now</strong>. Accrues one month at a time — up to 3 months total.',
     price:'$10', was:'was $20/mo', save:'Saving $10/mo',
     queue:null, m1:true, m2:false,
     clicks:12, total:1, saved:'$10', savedSub:'in subscription savings',
@@ -762,7 +784,7 @@ const S = {
   },
   cancelled:{
     amount:'50% <sub>off</sub>', eyebrow:'Active Discount — Referral Cancelled Early', barW:'50%',
-    desc:'Devon cancelled after month 2. You already earned <strong>2 months of 50% off</strong> — those are applied to your account.',
+    desc:'Your referral cancelled early. You already earned <strong>2 months of 50% off</strong> — those are applied to your account.',
     price:'$10', was:'was $20/mo', save:'1 month remaining',
     queue:null, m1:true, m2:false,
     clicks:9, total:1, saved:'$20', savedSub:'in subscription savings',
