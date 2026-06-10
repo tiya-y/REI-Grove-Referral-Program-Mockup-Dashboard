@@ -813,19 +813,19 @@ const TL = {
     {m:'Jun',t:'full'},{m:'Jul',t:'full'},{m:'Aug',t:'full'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
   ],
   'one-pending':[
-    {m:'Jun',t:'half',l:'50%'},{m:'Jul',t:'half',l:'50%'},{m:'Aug',t:'half',l:'50%'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
+    {m:'Jun',t:'half',l:'$10'},{m:'Jul',t:'half',l:'$10'},{m:'Aug',t:'half',l:'$10'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
   ],
   'one-completed':[
-    {m:'Jun',t:'half',l:'50%'},{m:'Jul',t:'half',l:'50%'},{m:'Aug',t:'half',l:'50%'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
+    {m:'Jun',t:'half',l:'$10'},{m:'Jul',t:'half',l:'$10'},{m:'Aug',t:'half',l:'$10'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
   ],
   'two-completed':[
     {m:'Jun',t:'free',l:'FREE'},{m:'Jul',t:'free',l:'FREE'},{m:'Aug',t:'free',l:'FREE'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
   ],
   'three-completed':[
-    {m:'Jun',t:'free',l:'FREE'},{m:'Jul',t:'free',l:'FREE'},{m:'Aug',t:'free',l:'FREE'},{m:'Sep',t:'half',l:'50%'},{m:'Oct',t:'half',l:'50%'},{m:'Nov',t:'half',l:'50%'}
+    {m:'Jun',t:'free',l:'FREE'},{m:'Jul',t:'free',l:'FREE'},{m:'Aug',t:'free',l:'FREE'},{m:'Sep',t:'half',l:'$10'},{m:'Oct',t:'half',l:'$10'},{m:'Nov',t:'half',l:'$10'}
   ],
   mixed:[
-    {m:'Jun',t:'free',l:'FREE'},{m:'Jul',t:'free',l:'FREE'},{m:'Aug',t:'half',l:'50%'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
+    {m:'Jun',t:'free',l:'FREE'},{m:'Jul',t:'free',l:'FREE'},{m:'Aug',t:'half',l:'$10'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
   ],
   cancelled:[
     {m:'Jun',t:'full'},{m:'Jul',t:'full'},{m:'Aug',t:'full'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
@@ -934,7 +934,7 @@ function renderTimeline(months, targetId) {
   const wrap = document.getElementById(targetId || 'tl-months-hero');
   if (!wrap) return;
   const typeMap = {free:'tm-free',half:'tm-half',full:'tm-full',queued:'tm-queued'};
-  const labelMap = {free:'FREE',half:'50%',full:'$20',queued:'Pend.'};
+  const labelMap = {free:'FREE',half:'$10',full:'$20',queued:'Pend.'};
   wrap.innerHTML = months.map(m =>
     `<div class="tm-col"><div class="tm-block ${typeMap[m.t]}">${m.l || labelMap[m.t]}</div><div class="tm-label${m.m==='Jun'?' now':''}">${m.m}${m.m==='Jun'?' ←':''}</div></div>`
   ).join('');
