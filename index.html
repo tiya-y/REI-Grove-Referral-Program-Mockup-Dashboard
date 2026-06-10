@@ -401,11 +401,9 @@ table.ref-table tbody tr:hover { background: var(--bg); }
   <button class="scenario-btn active" onclick="go('not-enrolled')">Not enrolled yet</button>
   <button class="scenario-btn" onclick="go('empty')">No referrals yet</button>
   <button class="scenario-btn" onclick="go('one-pending')">1 active (month 1 of 3)</button>
-  <button class="scenario-btn" onclick="go('one-completed')">1 completed → 50% off</button>
   <button class="scenario-btn" onclick="go('two-completed')">2 completed → FREE</button>
   <button class="scenario-btn" onclick="go('three-completed')">3 completed → stacked</button>
   <button class="scenario-btn" onclick="go('mixed')">Mixed states</button>
-  <button class="scenario-btn" onclick="go('cancelled')">Referral cancelled</button>
 </div>
 
 <!-- ═══════════════ BODY ═══════════════ -->
@@ -748,18 +746,6 @@ const S = {
     refs:[{name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:1,monthsEarned:1,voucher:'50% off 1 of 3 mo earned'}],
     tl:'one-pending'
   },
-  'one-completed':{
-    amount:'50% <sub>off</sub>', eyebrow:'Active Discount', barW:'50%',
-    desc:'Your next 2 months are billed at <strong>$10/mo</strong>. Discount expires in <strong>61 days</strong>.',
-    price:'$10', was:'was $20/mo', save:'Saving $10/mo',
-    queue:null, m1:true, m2:false,
-    clicks:24, total:3, saved:'$10', savedSub:'in subscription savings',
-    refs:[
-      {name:'Alicia M.',date:'Mar 1, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
-      {name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:2,monthsEarned:2,voucher:'50% off 2 of 3 mo earned'},
-      {name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:1,monthsEarned:1,voucher:'50% off 1 of 3 mo earned'},
-    ], tl:'one-completed'
-  },
   'two-completed':{
     amount:'FREE <sub style="font-size:14px;color:rgba(255,255,255,.45)"></sub>', eyebrow:'100% Off Free Access', barW:'100%',
     desc:'You have 2 completed referrals. REI Grove is completely <strong>free</strong> for the next 3 months.',
@@ -796,15 +782,6 @@ const S = {
       {name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:2,monthsEarned:2,voucher:'50% off 2 of 3 mo earned'},
     ], tl:'mixed'
   },
-  cancelled:{
-    amount:'50% <sub>off</sub>', eyebrow:'Active Discount Referral Cancelled Early', barW:'50%',
-    desc:'Your referral cancelled early. You already earned <strong>2 months of 50% off</strong> those are applied to your account.',
-    price:'$10', was:'was $20/mo', save:'1 month remaining',
-    queue:null, m1:true, m2:false,
-    clicks:9, total:1, saved:'$20', savedSub:'in subscription savings',
-    refs:[{name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:2,monthsEarned:2,voucher:'50% off 2 of 3 mo earned'}],
-    tl:'one-completed'
-  }
 };
 
 const TL = {
@@ -812,9 +789,6 @@ const TL = {
     {m:'Jun',t:'full'},{m:'Jul',t:'full'},{m:'Aug',t:'full'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
   ],
   'one-pending':[
-    {m:'Jun',t:'half',l:'$10'},{m:'Jul',t:'half',l:'$10'},{m:'Aug',t:'half',l:'$10'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
-  ],
-  'one-completed':[
     {m:'Jun',t:'half',l:'$10'},{m:'Jul',t:'half',l:'$10'},{m:'Aug',t:'half',l:'$10'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
   ],
   'two-completed':[
@@ -826,8 +800,8 @@ const TL = {
   mixed:[
     {m:'Jun',t:'free',l:'FREE'},{m:'Jul',t:'free',l:'FREE'},{m:'Aug',t:'half',l:'$10'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
   ],
-  cancelled:[
-    {m:'Jun',t:'full'},{m:'Jul',t:'full'},{m:'Aug',t:'full'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
+  'one-completed':[
+    {m:'Jun',t:'half',l:'$10'},{m:'Jul',t:'half',l:'$10'},{m:'Aug',t:'half',l:'$10'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
   ]
 };
 
