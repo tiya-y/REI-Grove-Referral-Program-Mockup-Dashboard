@@ -772,7 +772,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
         <div class="filter-chips" id="filter-chips">
           <button class="chip active" onclick="filter(this,'all')">All</button>
           <button class="chip" onclick="filter(this,'trial')">In Trial</button>
-          <button class="chip" onclick="filter(this,'active')">Active</button>
+          <button class="chip" onclick="filter(this,'completed')">Completed</button>
           <button class="chip" onclick="filter(this,'cancelled')">Cancelled</button>
         </div>
       </div>
@@ -880,21 +880,21 @@ const S = {
     balanceNum:5, balance:'$5',
     payoutReady:false, paidOutText:null,
     clicks:12, totalEarned:'$5', paidOut:'$0',
-    refs:[{name:'Marcus T.',date:'Apr 18, 2026',plan:'monthly',status:'active'}]
+    refs:[{name:'Marcus T.',date:'Apr 18, 2026',plan:'monthly',status:'completed'}]
   },
   'one-annual': {
     balanceNum:75, balance:'$75',
     payoutReady:true, paidOutText:null,
     clicks:24, totalEarned:'$75', paidOut:'$0',
-    refs:[{name:'Alicia M.',date:'Mar 1, 2026',plan:'annual',status:'active'}]
+    refs:[{name:'Alicia M.',date:'Mar 1, 2026',plan:'annual',status:'completed'}]
   },
   mixed: {
     balanceNum:85, balance:'$85',
     payoutReady:true, paidOutText:null,
     clicks:38, totalEarned:'$85', paidOut:'$0',
     refs:[
-      {name:'Alicia M.',date:'Mar 1, 2026',plan:'annual',status:'active'},
-      {name:'Marcus T.',date:'Apr 18, 2026',plan:'monthly',status:'active'},
+      {name:'Alicia M.',date:'Mar 1, 2026',plan:'annual',status:'completed'},
+      {name:'Marcus T.',date:'Apr 18, 2026',plan:'monthly',status:'completed'},
       {name:'Priya S.',date:'May 3, 2026',plan:'monthly',status:'cancelled'},
       {name:'Devon K.',date:'May 10, 2026',plan:'monthly',status:'trial'}
     ]
@@ -1000,16 +1000,17 @@ function renderRefs(refs) {
   }
 
   const badgeMap = {
-    active:    {cls:'badge-active',    icon:'<circle cx="12" cy="12" r="4" fill="currentColor"/>',                                                                  label:'Active'},
+    completed: {cls:'badge-completed', icon:'<path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',    label:'Completed'},
     cancelled: {cls:'badge-cancelled', icon:'<path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',                      label:'Cancelled'},
     trial:     {cls:'badge-trial',     icon:'<path d="M12 2v10m0 0l-3-3m3 3l3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',  label:'In Trial'},
   };
 
   let html = `<table class="ref-table"><thead><tr><th>Referral</th><th>Joined</th><th>Plan</th><th>You Earned</th><th>Status</th></tr></thead><tbody>`;
   shown.forEach(r => {
-    const b = badgeMap[r.status] || badgeMap.active;
+    const b = badgeMap[r.status] || badgeMap.completed;
     const p = PLAN[r.plan] || PLAN.monthly;
-    const earnedHTML = r.status === 'trial'
+    const isPending = r.status === 'trial' || r.status === 'cancelled';
+    const earnedHTML = isPending
       ? `<span style="color:var(--warning);font:500 12px/1 var(--font-sans)">${p.reward} pending</span>`
       : `<strong style="color:var(--forest);font-size:14px">${p.reward}</strong>`;
     html += `<tr>
