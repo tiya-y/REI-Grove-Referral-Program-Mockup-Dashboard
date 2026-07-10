@@ -456,6 +456,52 @@ table.ref-table tbody tr:hover { background: var(--bg); }
   .site-footer { padding: 32px 20px; }
   .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
 }
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  /* Header */
+  .site-header { padding: 0 16px; height: 56px; }
+  .rei-logo { height: 26px; }
+  .innago-logo { display: none; }
+  .logo-by { display: none; }
+  .avatar-chip > span:not(.avatar) { display: none; }
+
+  /* Scenario bar */
+  .scenario-bar { padding: 10px 16px; }
+
+  /* Main content */
+  .main { padding: var(--space-5) 16px !important; }
+
+  /* Hero card */
+  .discount-hero { padding: 24px 20px; border-radius: 16px; }
+  .dh-inner { flex-direction: column; gap: var(--space-5); }
+  .dh-amount { font-size: 42px; }
+  .dh-right { min-width: 0; width: 100%; }
+  .billing-card { padding: var(--space-3) var(--space-4); }
+
+  /* Cards */
+  .card { padding: 20px 16px; }
+
+  /* Referral table section */
+  .table-header { flex-direction: column; align-items: flex-start; gap: var(--space-3); }
+  .filter-chips { flex-wrap: wrap; }
+  #ref-list { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table.ref-table { min-width: 460px; }
+
+  /* Link row */
+  .link-row { flex-direction: column; }
+  .link-field { width: 100%; }
+  .link-row .btn-primary { width: 100%; justify-content: center; }
+
+  /* Reward chips (pre-enroll) */
+  .reward-chips { flex-direction: column; }
+
+  /* Toast */
+  .toast { left: 16px; right: 16px; bottom: 16px; width: auto; }
+
+  /* Footer */
+  .site-footer { padding: 24px 16px; }
+}
 </style>
 </head>
 <body>
@@ -499,7 +545,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
   <button class="scenario-btn" onclick="go('in-trial')">1 referral in trial</button>
   <button class="scenario-btn" onclick="go('one-monthly')">Trial done, +$5</button>
   <button class="scenario-btn" onclick="go('one-annual')">Annual done, +$75</button>
-  <button class="scenario-btn" onclick="go('mixed')">Multiple ($85, ready)</button>
+  <button class="scenario-btn" onclick="go('mixed')">Multiple ($80, ready)</button>
 </div>
 
 <!-- ═══════════════ BODY ═══════════════ -->
