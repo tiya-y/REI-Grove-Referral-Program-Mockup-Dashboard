@@ -244,7 +244,8 @@ table.ref-table tbody tr:hover { background: var(--bg); }
 .badge-completed { background: var(--success-bg); color: var(--success); }
 .badge-active    { background: var(--mint-100); color: #1a6b52; }
 .badge-cancelled { background: var(--error-bg); color: var(--error); }
-.badge-expired { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+.badge-expired   { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+.badge-trial     { background: var(--warning-bg); color: var(--warning); }
 
 /* Mini progress */
 .prog { display: flex; align-items: center; gap: var(--space-2); }
@@ -483,10 +484,10 @@ table.ref-table tbody tr:hover { background: var(--bg); }
   <span class="scenario-bar-label">Preview:</span>
   <button class="scenario-btn active" onclick="go('not-enrolled')">Not enrolled yet</button>
   <button class="scenario-btn" onclick="go('empty')">No referrals yet</button>
-  <button class="scenario-btn" onclick="go('one-monthly')">1 monthly (+$5)</button>
-  <button class="scenario-btn" onclick="go('one-annual')">1 annual (+$75, ready)</button>
-  <button class="scenario-btn" onclick="go('mixed')">Multiple referrals ($85)</button>
-  <button class="scenario-btn" onclick="go('paid-out')">After payout ($10 left)</button>
+  <button class="scenario-btn" onclick="go('in-trial')">1 referral in trial</button>
+  <button class="scenario-btn" onclick="go('one-monthly')">Trial done, +$5</button>
+  <button class="scenario-btn" onclick="go('one-annual')">Annual done, +$75</button>
+  <button class="scenario-btn" onclick="go('mixed')">Multiple ($85, ready)</button>
 </div>
 
 <!-- ═══════════════ BODY ═══════════════ -->
@@ -553,7 +554,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
           <div class="how-card">
             <div class="how-num">2</div>
             <div class="how-title">They join a paid plan</div>
-            <div class="how-desc">When your referral upgrades, you earn <strong>$5 for a monthly plan</strong> ($20/mo) or <strong>$75 for an annual plan</strong> ($200/yr). Rewards credit instantly.</div>
+            <div class="how-desc">When your referral completes their <strong>$1 one-week trial</strong> and pays their first full term, you earn <strong>$5</strong> (monthly) or <strong>$75</strong> (annual). No trial conversion = no reward.</div>
           </div>
           <div class="how-card">
             <div class="how-num">3</div>
@@ -628,8 +629,8 @@ table.ref-table tbody tr:hover { background: var(--bg); }
         </div>
         <div id="faq-pre">
           <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">How do I get paid?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Once your balance reaches $50, request a payout from your dashboard. We'll confirm your preferred method (Venmo, PayPal, or check) and process it within 5 business days.</div></div>
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What counts as a qualifying referral?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Your referral qualifies when they sign up for a paid REI Grove+ plan through your link — either the $20/month or $200/year plan. Free plan signups don't count.</div></div>
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if my referral cancels right after signing up?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Rewards are credited at the time of their paid signup. If they cancel afterward, your earned balance is not affected — the $5 or $75 stays in your account.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What counts as a qualifying referral?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Your referral qualifies once they complete the $1 one-week trial and pay their first full subscription term — either $20/month or $200/year. Starting a trial alone doesn't credit a reward. Free plan signups don't count either.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if my referral cancels during or after the trial?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">If they cancel during the $1 trial before converting, no reward is credited. If they cancel after paying their first full term, your reward has already been credited and stays in your account.</div></div>
           <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Can I refer someone already using REI Grove for free?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Yes. If they're already on the free plan and upgrade to a paid plan through your link, that counts as a qualifying referral.</div></div>
           <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Is there a limit to how many people I can refer?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No limit. Every qualifying paid signup earns you a reward — refer as many people as you'd like.</div></div>
           <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Does my balance expire?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No. Your balance builds up until you request a payout and stays available indefinitely — no expiration date.</div></div>
@@ -694,7 +695,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
           </div>
           <span class="card-title">Your Referral Link</span>
         </div>
-        <div class="card-subtitle">Monthly referral = $5. Annual referral = $75. Reach $50 to request a cash payout.</div>
+        <div class="card-subtitle">Earn $5 (monthly) or $75 (annual) once your referral completes their trial and pays their first full term. Reach $50 to cash out.</div>
       </div>
       <div class="link-row">
         <input class="link-field" id="ref-url" type="text" value="reigrove.com/ref/jordan123" readonly aria-label="Your unique referral link">
@@ -764,6 +765,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
         </div>
         <div class="filter-chips" id="filter-chips">
           <button class="chip active" onclick="filter(this,'all')">All</button>
+          <button class="chip" onclick="filter(this,'trial')">In Trial</button>
           <button class="chip" onclick="filter(this,'active')">Active</button>
           <button class="chip" onclick="filter(this,'cancelled')">Cancelled</button>
         </div>
@@ -862,6 +864,12 @@ const S = {
     clicks:0, totalEarned:'$0', paidOut:'$0',
     refs:[]
   },
+  'in-trial': {
+    balanceNum:0, balance:'$0',
+    payoutReady:false, paidOutText:null,
+    clicks:8, totalEarned:'$0', paidOut:'$0',
+    refs:[{name:'Marcus T.',date:'Apr 18, 2026',plan:'monthly',status:'trial'}]
+  },
   'one-monthly': {
     balanceNum:5, balance:'$5',
     payoutReady:false, paidOutText:null,
@@ -881,18 +889,8 @@ const S = {
     refs:[
       {name:'Alicia M.',date:'Mar 1, 2026',plan:'annual',status:'active'},
       {name:'Marcus T.',date:'Apr 18, 2026',plan:'monthly',status:'active'},
-      {name:'Priya S.',date:'May 3, 2026',plan:'monthly',status:'cancelled'}
-    ]
-  },
-  'paid-out': {
-    balanceNum:10, balance:'$10',
-    payoutReady:false, paidOutText:'$150 sent',
-    clicks:51, totalEarned:'$160', paidOut:'$150',
-    refs:[
-      {name:'Alicia M.',date:'Mar 1, 2026',plan:'annual',status:'active'},
-      {name:'Marcus T.',date:'Apr 18, 2026',plan:'monthly',status:'active'},
       {name:'Priya S.',date:'May 3, 2026',plan:'monthly',status:'cancelled'},
-      {name:'Tyler R.',date:'May 20, 2026',plan:'annual',status:'active'}
+      {name:'Devon K.',date:'May 10, 2026',plan:'monthly',status:'trial'}
     ]
   }
 };
@@ -998,17 +996,21 @@ function renderRefs(refs) {
   const badgeMap = {
     active:    {cls:'badge-active',    icon:'<circle cx="12" cy="12" r="4" fill="currentColor"/>',                                                                  label:'Active'},
     cancelled: {cls:'badge-cancelled', icon:'<path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',                      label:'Cancelled'},
+    trial:     {cls:'badge-trial',     icon:'<path d="M12 2v10m0 0l-3-3m3 3l3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',  label:'In Trial'},
   };
 
   let html = `<table class="ref-table"><thead><tr><th>Referral</th><th>Joined</th><th>Plan</th><th>You Earned</th><th>Status</th></tr></thead><tbody>`;
   shown.forEach(r => {
     const b = badgeMap[r.status] || badgeMap.active;
     const p = PLAN[r.plan] || PLAN.monthly;
+    const earnedHTML = r.status === 'trial'
+      ? `<span style="color:var(--warning);font:500 12px/1 var(--font-sans)">${p.reward} pending</span>`
+      : `<strong style="color:var(--forest);font-size:14px">${p.reward}</strong>`;
     html += `<tr>
       <td><div class="ref-name">${r.name}</div></td>
       <td><div class="ref-date">${r.date}</div></td>
       <td><span class="plan-tag plan-tag-${r.plan}">${p.label} <span class="plan-detail">${p.detail}</span></span></td>
-      <td><strong style="color:var(--forest);font-size:14px">${p.reward}</strong></td>
+      <td>${earnedHTML}</td>
       <td><span class="badge ${b.cls}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none">${b.icon}</svg> ${b.label}</span></td>
     </tr>`;
   });
