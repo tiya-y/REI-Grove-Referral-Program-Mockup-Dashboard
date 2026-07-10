@@ -739,13 +739,6 @@ table.ref-table tbody tr:hover { background: var(--bg); }
           WhatsApp
         </button>
       </div>
-      <div class="ref-prog" id="ref-prog">
-        <div class="ref-prog-top">
-          <div class="ref-prog-label" id="ref-prog-label"><strong>$0</strong> of $50 minimum to cash out</div>
-        </div>
-        <div class="bal-track"><div class="bal-fill" id="link-prog-fill" style="width:0%"></div></div>
-        <div class="ref-prog-sub" id="ref-prog-sub">Earn $50 in referral rewards to unlock your first payout.</div>
-      </div>
     </div>
 
     <!-- ── STATS ── -->
@@ -909,9 +902,9 @@ const S = {
     ]
   },
   mixed: {
-    balanceNum:85, balance:'$85',
+    balanceNum:80, balance:'$80',
     payoutReady:true, paidOutText:null,
-    clicks:38, totalEarned:'$85', paidOut:'$0',
+    clicks:38, totalEarned:'$80', paidOut:'$0',
     refs:[
       {name:'Alicia M.',date:'Mar 1, 2026',plan:'annual',status:'completed'},
       {name:'Marcus T.',date:'Apr 18, 2026',plan:'monthly',status:'completed'},
@@ -985,9 +978,6 @@ function go(name) {
   document.getElementById('s-clicks').textContent = d.clicks;
   document.getElementById('s-earned').textContent = d.totalEarned;
   document.getElementById('s-paidout').textContent = d.paidOut;
-
-  // Link card balance bar
-  updateBalanceProgress(d.balanceNum);
 
   // Refs + notifications
   renderNotifs(d.notifs);
