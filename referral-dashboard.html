@@ -325,6 +325,89 @@ table.ref-table tbody tr:hover { background: var(--bg); }
 }
 .toast.show { transform: translateY(0); opacity: 1; }
 
+/* ── WHATSAPP SHARE BTN ── */
+.share-btn-wa { background: #25D366; border-color: #25D366; color: white; }
+.share-btn-wa:hover { background: #1ebe5d; border-color: #1ebe5d; color: white; }
+
+/* ── REFERRAL PROGRESS TRACKER ── */
+.ref-prog { margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--border); }
+.ref-prog-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3); }
+.ref-prog-label { font: 500 12px/1.4 var(--font-sans); color: var(--muted); }
+.ref-prog-label strong { color: var(--forest); font-weight: 700; }
+.ref-prog-label.free-label { color: var(--grove); font-weight: 600; }
+.ref-prog-steps { display: flex; align-items: center; }
+.ref-prog-step {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 2px solid var(--border); background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font: 700 11px/1 var(--font-sans); color: var(--muted);
+  flex-shrink: 0; position: relative; z-index: 1;
+  transition: background .35s, border-color .35s, color .35s, box-shadow .35s;
+}
+.ref-prog-step.hit { background: var(--grove); border-color: var(--grove); color: white; box-shadow: 0 0 0 4px rgba(87,130,60,.14); }
+.ref-prog-step.free-badge {
+  width: auto; border-radius: 999px; padding: 0 12px;
+  background: linear-gradient(135deg, #9FE1CB, #C0DD97);
+  border-color: transparent; color: var(--forest); font-size: 10px; letter-spacing: .04em;
+  box-shadow: 0 0 0 4px rgba(159,225,203,.2);
+}
+.ref-prog-line { flex: 1; height: 3px; background: var(--border); min-width: 28px; transition: background .35s; margin: 0 6px; }
+.ref-prog-line.hit { background: var(--grove); }
+.ref-prog-sub { font: 400 11px/1.4 var(--font-sans); color: var(--muted); margin-top: var(--space-2); }
+
+/* ── PAYOUT BUTTON (white on dark hero) ── */
+.btn-payout {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  width: 100%; min-height: 44px; padding: 0 var(--space-5); border-radius: 10px; border: 0;
+  background: white; color: var(--forest); font: 600 13px/1 var(--font-sans);
+  cursor: pointer; transition: background .2s, opacity .2s;
+}
+.btn-payout:hover:not(:disabled) { background: var(--mint); }
+.btn-payout:disabled { opacity: .38; cursor: not-allowed; }
+
+/* ── PAYOUT READY CHIP ── */
+.payout-ready-chip {
+  display: none; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 99px;
+  background: rgba(159,225,203,.18); border: 1px solid rgba(159,225,203,.3);
+  color: var(--mint); font: 600 12px/1 var(--font-sans);
+  margin: var(--space-3) 0 var(--space-4);
+}
+.payout-min-note { font: 400 11px/1.4 var(--font-sans); color: rgba(255,255,255,.38); text-align: center; margin-top: 6px; }
+.payout-sent-pill {
+  display: none; align-items: center; gap: 6px; padding: 8px 14px;
+  border-radius: 10px; background: rgba(159,225,203,.1); border: 1px solid rgba(159,225,203,.2);
+  color: var(--mint); font: 600 11px/1.3 var(--font-sans); margin-top: var(--space-2);
+}
+
+/* ── PAYOUT PROGRESS ── */
+.payout-progress { margin-top: var(--space-5); }
+.payout-label-row { display: flex; justify-content: space-between; font: 400 10px/1 var(--font-sans); color: rgba(255,255,255,.4); margin-bottom: var(--space-2); }
+.payout-status { font-weight: 600; }
+.payout-ready-text { color: var(--mint) !important; }
+
+/* ── RATE ROWS in billing card ── */
+.rate-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; }
+.rate-row + .rate-row { border-top: 1px solid rgba(255,255,255,.08); margin-top: 5px; }
+.rate-plan { font: 400 11px/1 var(--font-sans); color: rgba(255,255,255,.55); }
+.rate-amount { font: 700 14px/1 var(--font-sans); color: var(--mint); }
+
+/* ── BALANCE PROGRESS BAR (link card) ── */
+.bal-track { height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; margin: var(--space-3) 0 var(--space-2); }
+.bal-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--grove), var(--mint)); transition: width .5s ease; }
+
+/* ── REWARD CHIPS (pre-enroll link card) ── */
+.reward-chips { display: flex; gap: var(--space-3); margin: var(--space-3) 0 var(--space-2); }
+.reward-chip { display: flex; align-items: center; justify-content: space-between; flex: 1; padding: var(--space-3) var(--space-4); background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; }
+.reward-chip-label { font: 400 12px/1 var(--font-sans); color: var(--muted); }
+.reward-chip-amount { font: 700 18px/1 var(--font-sans); color: var(--forest); }
+
+/* ── PLAN TAGS (referral table) ── */
+.plan-tag { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 8px; font: 600 11px/1 var(--font-sans); }
+.plan-tag-monthly { background: var(--light-green); color: var(--forest); }
+.plan-tag-annual  { background: var(--grove-50); color: var(--grove-600); }
+.plan-detail { font-weight: 400; opacity: .7; }
+
 /* ── DISABLED ── */
 .is-disabled { opacity: .5; cursor: not-allowed; }
 
@@ -400,10 +483,10 @@ table.ref-table tbody tr:hover { background: var(--bg); }
   <span class="scenario-bar-label">Preview:</span>
   <button class="scenario-btn active" onclick="go('not-enrolled')">Not enrolled yet</button>
   <button class="scenario-btn" onclick="go('empty')">No referrals yet</button>
-  <button class="scenario-btn" onclick="go('one-pending')">1 active (month 1 of 3)</button>
-  <button class="scenario-btn" onclick="go('two-completed')">2 completed → FREE</button>
-  <button class="scenario-btn" onclick="go('three-completed')">3 completed → stacked</button>
-  <button class="scenario-btn" onclick="go('mixed')">Mixed states</button>
+  <button class="scenario-btn" onclick="go('one-monthly')">1 monthly (+$5)</button>
+  <button class="scenario-btn" onclick="go('one-annual')">1 annual (+$75, ready)</button>
+  <button class="scenario-btn" onclick="go('mixed')">Multiple referrals ($85)</button>
+  <button class="scenario-btn" onclick="go('paid-out')">After payout ($10 left)</button>
 </div>
 
 <!-- ═══════════════ BODY ═══════════════ -->
@@ -452,7 +535,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
 
     <div class="page-header">
       <h1>Refer &amp; Earn</h1>
-      <p>Share REI Grove, earn up to 100% off your subscription for every person you bring in.</p>
+      <p>Share REI Grove, earn cash rewards for every paid member you bring in.</p>
     </div>
 
     <!-- ══ PRE-ENROLLMENT VIEW (shown until user copies link for first time) ══ -->
@@ -470,12 +553,12 @@ table.ref-table tbody tr:hover { background: var(--bg); }
           <div class="how-card">
             <div class="how-num">2</div>
             <div class="how-title">They join a paid plan</div>
-            <div class="how-desc">The moment your referral upgrades, your <strong>50% discount starts immediately</strong> no waiting period. It accrues one month at a time, up to 3 months total.</div>
+            <div class="how-desc">When your referral upgrades, you earn <strong>$5 for a monthly plan</strong> ($20/mo) or <strong>$75 for an annual plan</strong> ($200/yr). Rewards credit instantly.</div>
           </div>
           <div class="how-card">
             <div class="how-num">3</div>
-            <div class="how-title">Keep what you earn</div>
-            <div class="how-desc">If they cancel early, you keep the months already earned. Refer 2 active people at once and your subscription is <strong>free</strong>. Extra referrals queue automatically.</div>
+            <div class="how-title">Cash out at $50</div>
+            <div class="how-desc">Your rewards build up in your balance. Once you hit <strong>$50</strong>, request a payout. No expiration, no waiting.</div>
           </div>
         </div>
       </div>
@@ -512,6 +595,26 @@ table.ref-table tbody tr:hover { background: var(--bg); }
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#000"/><path d="M17.5 3h2.9l-6.2 7.1L21 21h-5.5l-4-5.3L7 21H4.1l6.6-7.6L3 3h5.6l3.6 4.7L17.5 3z" fill="white"/></svg>
             X / Twitter
           </button>
+          <button class="share-btn share-btn-wa" onclick="toast('Opening WhatsApp…')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.57A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.21-1.25-6.22-3.48-8.52zM12 21.96a9.93 9.93 0 0 1-5.06-1.38l-.36-.22-3.73.94.99-3.62-.24-.38A9.94 9.94 0 0 1 2.04 12C2.04 6.49 6.49 2.04 12 2.04c2.67 0 5.18 1.04 7.07 2.93A9.94 9.94 0 0 1 21.96 12c0 5.51-4.45 9.96-9.96 9.96zm5.46-7.45c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.68-1.63-.93-2.23-.24-.59-.49-.51-.68-.52h-.58c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.08-.13-.27-.2-.57-.35z" fill="white"/></svg>
+            WhatsApp
+          </button>
+        </div>
+        <div class="ref-prog">
+          <div class="ref-prog-top">
+            <div class="ref-prog-label">Your earnings per referral</div>
+          </div>
+          <div class="reward-chips">
+            <div class="reward-chip">
+              <span class="reward-chip-label">Monthly plan ($20/mo)</span>
+              <span class="reward-chip-amount">$5</span>
+            </div>
+            <div class="reward-chip">
+              <span class="reward-chip-label">Annual plan ($200/yr)</span>
+              <span class="reward-chip-amount">$75</span>
+            </div>
+          </div>
+          <div class="ref-prog-sub">Earn $50 in your balance to request a cash payout.</div>
         </div>
       </div>
 
@@ -524,12 +627,12 @@ table.ref-table tbody tr:hover { background: var(--bg); }
           <span class="card-title">Frequently Asked Questions</span>
         </div>
         <div id="faq-pre">
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Do discounts stack when I refer multiple people?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Yes. Each active referral contributes 50% off while they remain subscribed (up to 3 months each). Two active referrals at once combine to 100% off completely free. The cap is 100%; no cash or credits beyond free access. Additional referrals queue and activate automatically as earlier ones expire.</div></div>
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">When exactly does my discount start?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">The moment your referral upgrades to a paid plan no waiting period. Your 50% discount activates on your next billing cycle and accrues one month at a time for as long as they stay subscribed, up to 3 months total.</div></div>
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if my referral cancels before 3 months?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">You keep every month of discount you've already earned those are yours. Only future months stop. So if your referral cancels after month 2, you've already received 2 months of 50% off and those stay applied.</div></div>
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">How long does the 50% discount last per referral?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Up to 3 months per referral one month earned for each month they stay on a paid plan. Once they hit month 3 (or cancel), that referral's contribution is complete. Your billing returns to normal after unless other referrals are active or queued.</div></div>
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">I'm on an annual plan how does the discount apply?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Annual subscribers receive credits that apply at their next renewal. Each month a referral is active earns ~$8.33 in credit (50% of the monthly equivalent). A full 3-month referral = ~$25 credit. Credits accumulate and surplus carries forward.</div></div>
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Is there a limit to how many people I can refer?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No hard cap. Up to 10 referral discount months can be credited per calendar month any beyond that queue for the next month. The 100% maximum discount cap applies regardless of how many referrals are simultaneously active.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">How do I get paid?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Once your balance reaches $50, request a payout from your dashboard. We'll confirm your preferred method (Venmo, PayPal, or check) and process it within 5 business days.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What counts as a qualifying referral?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Your referral qualifies when they sign up for a paid REI Grove+ plan through your link — either the $20/month or $200/year plan. Free plan signups don't count.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if my referral cancels right after signing up?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Rewards are credited at the time of their paid signup. If they cancel afterward, your earned balance is not affected — the $5 or $75 stays in your account.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Can I refer someone already using REI Grove for free?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Yes. If they're already on the free plan and upgrade to a paid plan through your link, that counts as a qualifying referral.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Is there a limit to how many people I can refer?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No limit. Every qualifying paid signup earns you a reward — refer as many people as you'd like.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Does my balance expire?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No. Your balance builds up until you request a payout and stays available indefinitely — no expiration date.</div></div>
         </div>
       </div>
 
@@ -538,28 +641,45 @@ table.ref-table tbody tr:hover { background: var(--bg); }
     <!-- ══ ENROLLED VIEW (shown after user copies link for first time) ══ -->
     <div id="enrolled-view" class="view-hidden">
 
-    <!-- ── DISCOUNT STATUS ── -->
+    <!-- ── BALANCE HERO ── -->
     <div class="discount-hero" id="dh">
       <div class="dh-inner">
         <div class="dh-left">
-          <div class="dh-eyebrow" id="dh-eyebrow">Active Discount</div>
-          <div class="dh-amount" id="dh-amount">50% <sub>off</sub></div>
-          <div class="timeline-scroll" id="tl-months-hero" style="margin-top:var(--space-5);padding-bottom:0"></div>
-          <div class="tl-legend" style="margin-top:var(--space-4)">
-            <div class="tl-leg"><div class="tl-dot" style="background:linear-gradient(135deg,#9FE1CB,#C0DD97)"></div> 100% off</div>
-            <div class="tl-leg"><div class="tl-dot" style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.22)"></div> 50% off</div>
-            <div class="tl-leg"><div class="tl-dot" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12)"></div> Full price</div>
+          <div class="dh-eyebrow">Your Balance</div>
+          <div class="dh-amount" id="dh-amount">$0</div>
+          <div class="payout-ready-chip" id="payout-ready-chip">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Ready to cash out
+          </div>
+          <div class="payout-progress">
+            <div class="payout-label-row">
+              <span>$0</span>
+              <span id="payout-progress-text" class="payout-status">$50 to payout</span>
+              <span>$50 min</span>
+            </div>
+            <div class="dh-track"><div class="dh-fill" id="dh-fill-bar" style="width:0%"></div></div>
           </div>
         </div>
         <div class="dh-right">
           <div class="billing-card">
-            <div class="bc-label">Next Bill</div>
-            <div class="bc-price" id="bc-price">$10 <span>/mo</span></div>
-            <div class="bc-was" id="bc-was">was $20/mo</div>
+            <div class="bc-label">Reward Rates</div>
+            <div class="rate-row">
+              <span class="rate-plan">Monthly plan</span>
+              <span class="rate-amount">$5</span>
+            </div>
+            <div class="rate-row">
+              <span class="rate-plan">Annual plan</span>
+              <span class="rate-amount">$75</span>
+            </div>
           </div>
-          <div class="queue-pill" id="queue-pill" style="display:none">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.5 7.5H22l-6.5 4.5 2.5 7.5L12 17l-6.5 4.5L8 14 1.5 9.5H9.5L12 2z" fill="currentColor"/></svg>
-            <span id="queue-text"></span>
+          <button class="btn-payout" id="payout-btn" disabled onclick="toast('Payout request submitted! We\'ll reach out within 5 business days.')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 2v10m0 0l-3.5-3.5M12 12l3.5-3.5M3 17l.621 2.485A2 2 0 0 0 5.561 21h12.878a2 2 0 0 0 1.94-1.515L21 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Request Payout
+          </button>
+          <div class="payout-min-note" id="payout-min-note">$50 minimum required</div>
+          <div class="payout-sent-pill" id="payout-sent-pill">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="payout-sent-text"></span>
           </div>
         </div>
       </div>
@@ -574,7 +694,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
           </div>
           <span class="card-title">Your Referral Link</span>
         </div>
-        <div class="card-subtitle">Your 50% discount starts the moment each referral upgrades and accrues up to 3 months per person.</div>
+        <div class="card-subtitle">Monthly referral = $5. Annual referral = $75. Reach $50 to request a cash payout.</div>
       </div>
       <div class="link-row">
         <input class="link-field" id="ref-url" type="text" value="reigrove.com/ref/jordan123" readonly aria-label="Your unique referral link">
@@ -597,6 +717,17 @@ table.ref-table tbody tr:hover { background: var(--bg); }
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#000"/><path d="M17.5 3h2.9l-6.2 7.1L21 21h-5.5l-4-5.3L7 21H4.1l6.6-7.6L3 3h5.6l3.6 4.7L17.5 3z" fill="white"/></svg>
           X / Twitter
         </button>
+        <button class="share-btn share-btn-wa" onclick="toast('Opening WhatsApp…')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.57A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.21-1.25-6.22-3.48-8.52zM12 21.96a9.93 9.93 0 0 1-5.06-1.38l-.36-.22-3.73.94.99-3.62-.24-.38A9.94 9.94 0 0 1 2.04 12C2.04 6.49 6.49 2.04 12 2.04c2.67 0 5.18 1.04 7.07 2.93A9.94 9.94 0 0 1 21.96 12c0 5.51-4.45 9.96-9.96 9.96zm5.46-7.45c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.68-1.63-.93-2.23-.24-.59-.49-.51-.68-.52h-.58c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.08-.13-.27-.2-.57-.35z" fill="white"/></svg>
+          WhatsApp
+        </button>
+      </div>
+      <div class="ref-prog" id="ref-prog">
+        <div class="ref-prog-top">
+          <div class="ref-prog-label" id="ref-prog-label"><strong>$0</strong> of $50 minimum to cash out</div>
+        </div>
+        <div class="bal-track"><div class="bal-fill" id="link-prog-fill" style="width:0%"></div></div>
+        <div class="ref-prog-sub" id="ref-prog-sub">Earn $50 in referral rewards to unlock your first payout.</div>
       </div>
     </div>
 
@@ -604,18 +735,18 @@ table.ref-table tbody tr:hover { background: var(--bg); }
     <div class="stats-row">
       <div class="stat-card">
         <div class="stat-label">Link Clicks</div>
-        <div class="stat-value" id="s-clicks">24</div>
+        <div class="stat-value" id="s-clicks">0</div>
         <div class="stat-sub">last 30 days</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Total Referrals</div>
-        <div class="stat-value" id="s-total">3</div>
-        <div class="stat-sub" id="s-total-sub">all time</div>
+        <div class="stat-label">Total Earned</div>
+        <div class="stat-value" id="s-earned">$0</div>
+        <div class="stat-sub">all time</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Total Saved</div>
-        <div class="stat-value" id="s-saved">$10</div>
-        <div class="stat-sub" id="s-saved-sub">in subscription savings</div>
+        <div class="stat-label">Paid Out</div>
+        <div class="stat-value" id="s-paidout">$0</div>
+        <div class="stat-sub">lifetime payouts</div>
       </div>
     </div>
 
@@ -629,11 +760,10 @@ table.ref-table tbody tr:hover { background: var(--bg); }
             </div>
             <span class="card-title">Your Referrals</span>
           </div>
-          <div class="card-subtitle">Track each person you've referred and their reward status.</div>
+          <div class="card-subtitle">Track each person you've referred and the reward earned.</div>
         </div>
         <div class="filter-chips" id="filter-chips">
           <button class="chip active" onclick="filter(this,'all')">All</button>
-          <button class="chip" onclick="filter(this,'completed')">Complete</button>
           <button class="chip" onclick="filter(this,'active')">Active</button>
           <button class="chip" onclick="filter(this,'cancelled')">Cancelled</button>
         </div>
@@ -654,12 +784,12 @@ table.ref-table tbody tr:hover { background: var(--bg); }
         <div class="how-card">
           <div class="how-num">2</div>
           <div class="how-title">They join a paid plan</div>
-          <div class="how-desc">The moment your referral upgrades, your <strong>50% discount starts immediately</strong> no waiting period. It accrues one month at a time, up to 3 months total.</div>
+          <div class="how-desc">When your referral upgrades, you earn <strong>$5 for a monthly plan</strong> ($20/mo) or <strong>$75 for an annual plan</strong> ($200/yr). Rewards credit instantly.</div>
         </div>
         <div class="how-card">
           <div class="how-num">3</div>
-          <div class="how-title">Keep what you earn</div>
-          <div class="how-desc">If they cancel early, you keep the months already earned. Refer 2 active people at once and your subscription is <strong>free</strong>. Extra referrals queue automatically.</div>
+          <div class="how-title">Cash out at $50</div>
+          <div class="how-desc">Your rewards build up in your balance. Once you hit <strong>$50</strong>, request a payout. No expiration, no waiting.</div>
         </div>
       </div>
     </div>
@@ -673,13 +803,12 @@ table.ref-table tbody tr:hover { background: var(--bg); }
         <span class="card-title">Frequently Asked Questions</span>
       </div>
       <div id="faq-enrolled">
-        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Do discounts stack when I refer multiple people?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Yes. Each active referral contributes 50% off while they remain subscribed (up to 3 months each). Two active referrals at once combine to 100% off completely free. The cap is 100%; no cash or credits beyond free access. Additional referrals queue and activate automatically as earlier ones expire.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">When exactly does my discount start?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">The moment your referral upgrades to a paid plan no waiting period. Your 50% discount activates on your next billing cycle and accrues one month at a time for as long as they stay subscribed, up to 3 months total.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if my referral cancels before 3 months?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">You keep every month of discount you've already earned those are yours. Only future months stop. So if your referral cancels after month 2, you've already received 2 months of 50% off and those stay applied.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">How long does the 50% discount last per referral?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Up to 3 months per referral one month earned for each month they stay on a paid plan. Once they hit month 3 (or cancel), that referral's contribution is complete. Your billing returns to normal after unless other referrals are active or queued.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if I cancel my own subscription?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Any currently-active discount months continue through their remaining period. Queued vouchers are forfeited if you cancel. If you reactivate within 6 months, unexpired queued vouchers are reinstated automatically.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">I'm on an annual plan how does the discount apply?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Annual subscribers receive credits that apply at their next renewal. Each month a referral is active earns ~$8.33 in credit (50% of the monthly equivalent). A full 3-month referral = ~$25 credit. Credits accumulate and surplus carries forward.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Is there a limit to how many people I can refer?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No hard cap. Up to 10 referral discount months can be credited per calendar month any beyond that queue for the next month. The 100% maximum discount cap applies regardless of how many referrals are simultaneously active.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">How do I get paid?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Once your balance reaches $50, request a payout from your dashboard. We'll confirm your preferred method (Venmo, PayPal, or check) and process it within 5 business days.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What counts as a qualifying referral?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Your referral qualifies when they sign up for a paid REI Grove+ plan through your link — either the $20/month or $200/year plan. Free plan signups don't count.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if my referral cancels right after signing up?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Rewards are credited at the time of their paid signup. If they cancel afterward, your earned balance is not affected — the $5 or $75 stays in your account.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Can I refer someone already using REI Grove for free?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Yes. If they're already on the free plan and upgrade to a paid plan through your link, that counts as a qualifying referral.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Is there a limit to how many people I can refer?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No limit. Every qualifying paid signup earns you a reward — refer as many people as you'd like.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Does my balance expire?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No. Your balance builds up until you request a payout and stays available indefinitely — no expiration date.</div></div>
       </div>
     </div>
 
@@ -726,83 +855,51 @@ table.ref-table tbody tr:hover { background: var(--bg); }
 </footer>
 
 <script>
-/* ── SCENARIO DATA ── */
 const S = {
   empty: {
-    amount: '<sub style="font-size:18px;font-weight:400;color:rgba(255,255,255,.45)">No discount yet</sub>',
-    eyebrow:'No Active Discount', barW:'0%',
-    desc:'Refer your first person to unlock 50% off. Refer two and REI Grove is free.',
-    price:'$20', was:'', save:'No discount active',
-    queue:null, m1:false, m2:false,
-    clicks:0, total:0, saved:'$0', savedSub:'in subscription savings',
-    refs:[], tl:'empty'
+    balanceNum:0, balance:'$0',
+    payoutReady:false, paidOutText:null,
+    clicks:0, totalEarned:'$0', paidOut:'$0',
+    refs:[]
   },
-  'one-pending':{
-    amount:'50% <sub>off</sub>', eyebrow:'Active Discount Month 1 of 3', barW:'50%',
-    desc:'Your 50% discount is <strong>active now</strong>. Accrues one month at a time up to 3 months total.',
-    price:'$10', was:'was $20/mo', save:'Saving $10/mo',
-    queue:null, m1:true, m2:false,
-    clicks:12, total:1, saved:'$10', savedSub:'in subscription savings',
-    refs:[{name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:1,monthsEarned:1,voucher:'50% off 1 of 3 mo earned'}],
-    tl:'one-pending'
+  'one-monthly': {
+    balanceNum:5, balance:'$5',
+    payoutReady:false, paidOutText:null,
+    clicks:12, totalEarned:'$5', paidOut:'$0',
+    refs:[{name:'Marcus T.',date:'Apr 18, 2026',plan:'monthly',status:'active'}]
   },
-  'two-completed':{
-    amount:'FREE <sub style="font-size:14px;color:rgba(255,255,255,.45)"></sub>', eyebrow:'100% Off Free Access', barW:'100%',
-    desc:'You have 2 completed referrals. REI Grove is completely <strong>free</strong> for the next 3 months.',
-    price:'$0', was:'was $20/mo', save:'Saving $20/mo free!',
-    queue:null, m1:true, m2:true,
-    clicks:38, total:2, saved:'$40', savedSub:'in subscription savings',
+  'one-annual': {
+    balanceNum:75, balance:'$75',
+    payoutReady:true, paidOutText:null,
+    clicks:24, totalEarned:'$75', paidOut:'$0',
+    refs:[{name:'Alicia M.',date:'Mar 1, 2026',plan:'annual',status:'active'}]
+  },
+  mixed: {
+    balanceNum:85, balance:'$85',
+    payoutReady:true, paidOutText:null,
+    clicks:38, totalEarned:'$85', paidOut:'$0',
     refs:[
-      {name:'Alicia M.',date:'Mar 1, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
-      {name:'Priya S.',date:'Mar 14, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
-    ], tl:'two-completed'
+      {name:'Alicia M.',date:'Mar 1, 2026',plan:'annual',status:'active'},
+      {name:'Marcus T.',date:'Apr 18, 2026',plan:'monthly',status:'active'},
+      {name:'Priya S.',date:'May 3, 2026',plan:'monthly',status:'cancelled'}
+    ]
   },
-  'three-completed':{
-    amount:'FREE <sub style="font-size:14px;color:rgba(255,255,255,.45)"></sub>', eyebrow:'Free + 1 Voucher Queued', barW:'100%',
-    desc:'You\'re free now plus a <strong>3rd voucher is queued</strong> for when your current window ends.',
-    price:'$0', was:'was $20/mo', save:'Saving $20/mo free!',
-    queue:'1 voucher queued 50% off for 3 mo', m1:true, m2:true,
-    clicks:51, total:3, saved:'$60', savedSub:'in subscription savings',
+  'paid-out': {
+    balanceNum:10, balance:'$10',
+    payoutReady:false, paidOutText:'$150 sent',
+    clicks:51, totalEarned:'$160', paidOut:'$150',
     refs:[
-      {name:'Alicia M.',date:'Mar 1, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
-      {name:'Priya S.',date:'Mar 14, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
-      {name:'Tyler R.',date:'Apr 2, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo (queued)'},
-    ], tl:'three-completed'
-  },
-  mixed:{
-    amount:'FREE', eyebrow:'Active Discount', barW:'100%',
-    desc:'1 discount active. 1 more referral earning they go <strong>free</strong>.',
-    price:'$0', was:'was $20/mo', save:'',
-    queue:null, m1:true, m2:true,
-    clicks:34, total:4, saved:'$20', savedSub:'in subscription savings',
-    refs:[
-      {name:'Alicia M.',date:'Mar 1, 2026',status:'completed',prog:3,monthsEarned:3,voucher:'50% off × 3 mo'},
-      {name:'Marcus T.',date:'Apr 18, 2026',status:'active',prog:2,monthsEarned:2,voucher:'50% off 2 of 3 mo earned'},
-      {name:'Keisha W.',date:'May 3, 2026',status:'active',prog:1,monthsEarned:1,voucher:'50% off 1 of 3 mo earned'},
-      {name:'Devon K.',date:'Feb 14, 2026',status:'cancelled',prog:2,monthsEarned:2,voucher:'50% off 2 of 3 mo earned'},
-    ], tl:'mixed'
-  },
+      {name:'Alicia M.',date:'Mar 1, 2026',plan:'annual',status:'active'},
+      {name:'Marcus T.',date:'Apr 18, 2026',plan:'monthly',status:'active'},
+      {name:'Priya S.',date:'May 3, 2026',plan:'monthly',status:'cancelled'},
+      {name:'Tyler R.',date:'May 20, 2026',plan:'annual',status:'active'}
+    ]
+  }
 };
 
-const TL = {
-  empty:[
-    {m:'Jun',t:'full'},{m:'Jul',t:'full'},{m:'Aug',t:'full'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
-  ],
-  'one-pending':[
-    {m:'Jun',t:'half',l:'$10'},{m:'Jul',t:'half',l:'$10'},{m:'Aug',t:'half',l:'$10'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
-  ],
-  'two-completed':[
-    {m:'Jun',t:'free',l:'FREE'},{m:'Jul',t:'free',l:'FREE'},{m:'Aug',t:'free',l:'FREE'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
-  ],
-  'three-completed':[
-    {m:'Jun',t:'free',l:'FREE'},{m:'Jul',t:'free',l:'FREE'},{m:'Aug',t:'free',l:'FREE'},{m:'Sep',t:'half',l:'$10'},{m:'Oct',t:'half',l:'$10'},{m:'Nov',t:'half',l:'$10'}
-  ],
-  mixed:[
-    {m:'Jun',t:'free',l:'FREE'},{m:'Jul',t:'free',l:'FREE'},{m:'Aug',t:'half',l:'$10'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
-  ],
-  'one-completed':[
-    {m:'Jun',t:'half',l:'$10'},{m:'Jul',t:'half',l:'$10'},{m:'Aug',t:'half',l:'$10'},{m:'Sep',t:'full'},{m:'Oct',t:'full'},{m:'Nov',t:'full'}
-  ]
+const PLAN = {
+  monthly: {label:'Monthly', detail:'$20/mo', reward:'$5'},
+  annual:  {label:'Annual',  detail:'$200/yr', reward:'$75'}
 };
 
 let currentFilter = 'all';
@@ -810,57 +907,79 @@ let currentScenario = 'not-enrolled';
 
 function go(name) {
   currentScenario = name;
-
-  // Scenario bar
-  document.querySelectorAll('.scenario-btn').forEach(b => b.classList.toggle('active', b.getAttribute('onclick') === `go('${name}')`));
-
-  // Toggle pre-enroll vs enrolled views
+  document.querySelectorAll('.scenario-btn').forEach(b =>
+    b.classList.toggle('active', b.getAttribute('onclick') === `go('${name}')`)
+  );
   const isEnrolled = name !== 'not-enrolled';
-  const preEl = document.getElementById('pre-enroll-view');
-  const enrEl = document.getElementById('enrolled-view');
-  if (isEnrolled) {
-    preEl.classList.add('view-hidden');
-    enrEl.classList.remove('view-hidden');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  } else {
-    preEl.classList.remove('view-hidden');
-    enrEl.classList.add('view-hidden');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  if (!isEnrolled) return; // nothing else to update
+  document.getElementById('pre-enroll-view').classList.toggle('view-hidden', isEnrolled);
+  document.getElementById('enrolled-view').classList.toggle('view-hidden', !isEnrolled);
+  window.scrollTo({top:0, behavior:'smooth'});
+  if (!isEnrolled) return;
 
   const d = S[name];
 
-  // Discount hero
-  document.getElementById('dh-eyebrow').textContent = 'Active Discount';
-  document.getElementById('dh-amount').innerHTML = d.amount;
-  document.getElementById('bc-price').innerHTML = d.price + (d.price !== '$0' ? ' <span>/mo</span>' : ' <span style="font-size:13px;color:rgba(255,255,255,.4)">/mo</span>');
-  document.getElementById('bc-was').textContent = d.was;
-  const qp = document.getElementById('queue-pill');
-  if (d.queue) { qp.style.display = 'inline-flex'; document.getElementById('queue-text').textContent = d.queue; }
-  else { qp.style.display = 'none'; }
-  renderTimeline(TL[d.tl], 'tl-months-hero');
+  // Hero balance
+  document.getElementById('dh-amount').textContent = d.balance;
+  const pct = Math.min(100, Math.round((d.balanceNum / 50) * 100));
+  document.getElementById('dh-fill-bar').style.width = pct + '%';
+
+  const readyChip = document.getElementById('payout-ready-chip');
+  const progressText = document.getElementById('payout-progress-text');
+  const payoutBtn = document.getElementById('payout-btn');
+  const minNote = document.getElementById('payout-min-note');
+  const sentPill = document.getElementById('payout-sent-pill');
+
+  if (d.payoutReady) {
+    readyChip.style.display = 'inline-flex';
+    progressText.textContent = 'Ready to cash out!';
+    progressText.classList.add('payout-ready-text');
+    payoutBtn.disabled = false;
+    minNote.style.display = 'none';
+  } else {
+    readyChip.style.display = 'none';
+    const rem = 50 - d.balanceNum;
+    progressText.textContent = rem > 0 ? '$' + rem + ' to payout' : 'Ready!';
+    progressText.classList.remove('payout-ready-text');
+    payoutBtn.disabled = true;
+    minNote.style.display = 'block';
+  }
+
+  if (d.paidOutText) {
+    sentPill.style.display = 'inline-flex';
+    document.getElementById('payout-sent-text').textContent = d.paidOutText;
+  } else {
+    sentPill.style.display = 'none';
+  }
 
   // Stats
   document.getElementById('s-clicks').textContent = d.clicks;
-  document.getElementById('s-total').textContent = d.total;
-  document.getElementById('s-total-sub').textContent = 'all time';
-  document.getElementById('s-saved').textContent = d.saved;
-  document.getElementById('s-saved-sub').textContent = d.savedSub;
+  document.getElementById('s-earned').textContent = d.totalEarned;
+  document.getElementById('s-paidout').textContent = d.paidOut;
 
+  // Link card balance bar
+  updateBalanceProgress(d.balanceNum);
+
+  // Refs
   renderRefs(d.refs);
-  renderTimeline(TL[d.tl]);
 }
 
-function copyLinkPre() {
-  const v = document.getElementById('ref-url-pre').value;
-  navigator.clipboard.writeText(v).catch(() => {});
-  const btn = document.getElementById('copy-btn-pre');
-  btn.classList.add('done');
-  btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Copied!`;
-  toast('Link copied! Your dashboard is ready.');
-  setTimeout(() => { go('empty'); }, 800);
+function updateBalanceProgress(n) {
+  const pct = Math.min(100, Math.round((n / 50) * 100));
+  const label = document.getElementById('ref-prog-label');
+  const sub = document.getElementById('ref-prog-sub');
+  const fill = document.getElementById('link-prog-fill');
+  if (!label) return;
+  if (n >= 50) {
+    label.innerHTML = '<span style="color:var(--grove);font-weight:600">Balance ready for payout!</span>';
+    sub.textContent = 'Your balance is $' + n + '. Use the Request Payout button above.';
+  } else if (n === 0) {
+    label.innerHTML = '<strong>$0</strong> of $50 minimum to cash out';
+    sub.textContent = 'Earn $50 in referral rewards to unlock your first payout.';
+  } else {
+    label.innerHTML = '<strong>$' + n + '</strong> of $50 minimum to cash out';
+    sub.textContent = '$' + (50 - n) + ' more to go. Keep sharing your link!';
+  }
+  if (fill) fill.style.width = pct + '%';
 }
 
 function renderRefs(refs) {
@@ -868,7 +987,7 @@ function renderRefs(refs) {
   const shown = currentFilter === 'all' ? refs : refs.filter(r => r.status === currentFilter);
 
   if (!refs.length) {
-    list.innerHTML = `<div class="empty-state"><div class="empty-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="8" r="4" fill="#57823C" opacity=".5"/><path d="M3 21c0-3.866 3.134-7 7-7h3" stroke="#57823C" stroke-width="1.8" stroke-linecap="round"/><circle cx="18" cy="17" r="4" fill="#57823C" opacity=".25"/><path d="M16.5 17l1.2 1.2 2-2" stroke="#57823C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="empty-title">No referrals yet</div><div class="empty-desc">Share your link above and start earning. Each completed referral earns you 50% off your bill.</div><button class="btn-primary" onclick="copyLink()" style="margin:0 auto;display:inline-flex">Copy my link</button></div>`;
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="10" cy="8" r="4" fill="#57823C" opacity=".5"/><path d="M3 21c0-3.866 3.134-7 7-7h3" stroke="#57823C" stroke-width="1.8" stroke-linecap="round"/><circle cx="18" cy="17" r="4" fill="#57823C" opacity=".25"/><path d="M16.5 17l1.2 1.2 2-2" stroke="#57823C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="empty-title">No referrals yet</div><div class="empty-desc">Share your link above. Every paid signup earns you $5 (monthly) or $75 (annual).</div><button class="btn-primary" onclick="copyLink()" style="margin:0 auto;display:inline-flex">Copy my link</button></div>`;
     return;
   }
   if (!shown.length) {
@@ -877,40 +996,24 @@ function renderRefs(refs) {
   }
 
   const badgeMap = {
-    completed: {cls:'badge-completed', icon:'<path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>', label:'Complete'},
     active:    {cls:'badge-active',    icon:'<circle cx="12" cy="12" r="4" fill="currentColor"/>',                                                                  label:'Active'},
     cancelled: {cls:'badge-cancelled', icon:'<path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',                      label:'Cancelled'},
   };
 
-  let html = `<table class="ref-table" role="table"><thead><tr><th>Referral</th><th>Joined</th><th>Status</th><th>Months Earned</th><th>Reward</th></tr></thead><tbody>`;
+  let html = `<table class="ref-table"><thead><tr><th>Referral</th><th>Joined</th><th>Plan</th><th>You Earned</th><th>Status</th></tr></thead><tbody>`;
   shown.forEach(r => {
     const b = badgeMap[r.status] || badgeMap.active;
-    const earned = r.monthsEarned || 0;
-    const pct = Math.round((earned / 3) * 100);
-    let progHTML;
-    if (r.status === 'completed') {
-      progHTML = `<div class="prog"><div class="prog-track"><div class="prog-fill done" style="width:100%"></div></div><span class="prog-label" style="color:var(--success);font-weight:600">3 of 3 ✓</span></div>`;
-    } else if (r.status === 'active') {
-      progHTML = `<div class="prog"><div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div><span class="prog-label">${earned} of 3 mo</span></div>`;
-    } else {
-      progHTML = `<div class="prog"><div class="prog-track"><div class="prog-fill cancel" style="width:${pct}%"></div></div><span class="prog-label" style="color:var(--error)">${earned} of 3 mo</span></div>`;
-    }
-    const isQueued = r.voucher && r.voucher.includes('queued');
-    const vHTML = r.voucher ? `<span class="voucher-tag${isQueued?' queued':''}">${isQueued?'⏳ ':''}${r.voucher}</span>` : `<span style="color:var(--muted);font-size:12px"></span>`;
-    html += `<tr><td><div class="ref-name">${r.name}</div></td><td><div class="ref-date">${r.date}</div></td><td><span class="badge ${b.cls}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none">${b.icon}</svg> ${b.label}</span></td><td>${progHTML}</td><td>${vHTML}</td></tr>`;
+    const p = PLAN[r.plan] || PLAN.monthly;
+    html += `<tr>
+      <td><div class="ref-name">${r.name}</div></td>
+      <td><div class="ref-date">${r.date}</div></td>
+      <td><span class="plan-tag plan-tag-${r.plan}">${p.label} <span class="plan-detail">${p.detail}</span></span></td>
+      <td><strong style="color:var(--forest);font-size:14px">${p.reward}</strong></td>
+      <td><span class="badge ${b.cls}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none">${b.icon}</svg> ${b.label}</span></td>
+    </tr>`;
   });
   html += '</tbody></table>';
   list.innerHTML = html;
-}
-
-function renderTimeline(months, targetId) {
-  const wrap = document.getElementById(targetId || 'tl-months-hero');
-  if (!wrap) return;
-  const typeMap = {free:'tm-free',half:'tm-half',full:'tm-full',queued:'tm-queued'};
-  const labelMap = {free:'FREE',half:'$10',full:'$20',queued:'Pend.'};
-  wrap.innerHTML = months.map(m =>
-    `<div class="tm-col"><div class="tm-block ${typeMap[m.t]}">${m.l || labelMap[m.t]}</div><div class="tm-label${m.m==='Jun'?' now':''}">${m.m}${m.m==='Jun'?' ←':''}</div></div>`
-  ).join('');
 }
 
 function filter(el, f) {
@@ -925,6 +1028,16 @@ function faqToggle(btn) {
   const open = btn.classList.contains('open');
   document.querySelectorAll('.faq-q').forEach(q => { q.classList.remove('open'); q.nextElementSibling.classList.remove('open'); });
   if (!open) { btn.classList.add('open'); ans.classList.add('open'); }
+}
+
+function copyLinkPre() {
+  const v = document.getElementById('ref-url-pre').value;
+  navigator.clipboard.writeText(v).catch(() => {});
+  const btn = document.getElementById('copy-btn-pre');
+  btn.classList.add('done');
+  btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Copied!`;
+  toast('Link copied! Your dashboard is ready.');
+  setTimeout(() => { go('empty'); }, 800);
 }
 
 function copyLink() {
