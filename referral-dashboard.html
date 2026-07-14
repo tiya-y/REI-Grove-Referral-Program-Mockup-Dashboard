@@ -247,6 +247,24 @@ table.ref-table tbody tr:hover { background: var(--bg); }
 .badge-expired   { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
 .badge-trial     { background: var(--warning-bg); color: var(--warning); }
 
+/* ── PAYPAL ROW ── */
+.paypal-row { display: flex; align-items: center; gap: var(--space-2); }
+.paypal-logo { flex-shrink: 0; display: flex; align-items: center; }
+.paypal-input { flex: 1; }
+.paypal-save-btn { flex-shrink: 0; }
+.paypal-edit-btn {
+  flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px;
+  padding: 0 var(--space-4); height: 44px; border-radius: 10px;
+  border: 1.5px solid var(--border); background: var(--white);
+  color: var(--forest); font: 500 13px/1 var(--font-sans); cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.paypal-edit-btn:hover { border-color: rgba(87,130,60,.3); background: var(--light-green); }
+.paypal-saved-note {
+  display: flex; align-items: center; gap: 6px; margin-top: var(--space-3);
+  font: 400 12px/1.4 var(--font-sans); color: var(--success);
+}
+
 /* ── NOTIFICATIONS ── */
 .notif-area { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
 .notif-row { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border-radius: 10px; font: 500 13px/1.45 var(--font-sans); }
@@ -739,6 +757,34 @@ table.ref-table tbody tr:hover { background: var(--bg); }
       </div>
     </div>
 
+    <!-- ── PAYOUT ACCOUNT ── -->
+    <div class="card">
+      <div class="card-header" style="margin-bottom:var(--space-4)">
+        <div class="card-title-row">
+          <div class="icon-well">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="3" fill="#57823C" opacity=".2"/><path d="M2 9h20" stroke="#57823C" stroke-width="1.8"/><path d="M6 14h4M15 14h3" stroke="#57823C" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <span class="card-title">Payout Account</span>
+        </div>
+        <div class="card-subtitle">Where we send your balance when it reaches $50. Payouts go to PayPal.</div>
+      </div>
+      <div class="paypal-row" id="paypal-row">
+        <div class="paypal-logo">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7.5 21H4l1.5-9h5.5c2.5 0 4.5-1 4.5-3.5S13 3 10.5 3H5L3 15" stroke="#003087" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 21H6.5l1-6h5c2.5 0 4-1 4-3s-1.5-3-4-3H8L6.5 15" stroke="#009cde" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <input class="link-field paypal-input" id="paypal-email" type="email" placeholder="your@paypal.com" aria-label="PayPal email address">
+        <button class="btn-primary paypal-save-btn" id="paypal-save-btn" onclick="savePaypal()">Save</button>
+        <button class="paypal-edit-btn" id="paypal-edit-btn" style="display:none" onclick="editPaypal()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          Edit
+        </button>
+      </div>
+      <div class="paypal-saved-note" id="paypal-saved-note" style="display:none">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Saved — payouts will be sent here when your balance hits $50.
+      </div>
+    </div>
+
     <!-- ── REFERRAL LINK ── -->
     <div class="card">
       <div class="card-header">
@@ -1114,6 +1160,28 @@ function filter(el, f) {
     if (activeFilters.size === 0) allChip.classList.add('active');
   }
   if (S[currentScenario]) renderRefs(S[currentScenario].refs);
+}
+
+function savePaypal() {
+  const input = document.getElementById('paypal-email');
+  const val = input.value.trim();
+  if (!val || !val.includes('@')) { input.focus(); input.style.borderColor = 'var(--error)'; return; }
+  input.style.borderColor = '';
+  input.readOnly = true;
+  input.style.color = 'var(--forest)';
+  document.getElementById('paypal-save-btn').style.display = 'none';
+  document.getElementById('paypal-edit-btn').style.display = 'inline-flex';
+  document.getElementById('paypal-saved-note').style.display = 'flex';
+  toast('PayPal account saved!');
+}
+
+function editPaypal() {
+  const input = document.getElementById('paypal-email');
+  input.readOnly = false;
+  input.focus();
+  document.getElementById('paypal-save-btn').style.display = '';
+  document.getElementById('paypal-edit-btn').style.display = 'none';
+  document.getElementById('paypal-saved-note').style.display = 'none';
 }
 
 function faqToggle(btn) {
