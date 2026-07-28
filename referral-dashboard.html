@@ -247,9 +247,10 @@ table.ref-table tbody tr:hover { background: var(--bg); }
 .badge-expired   { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
 .badge-trial     { background: var(--warning-bg); color: var(--warning); }
 
-/* ── PAYPAL ROW ── */
+/* ── PAYPAL SECTION ── */
+.paypal-section { margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--border); }
+.paypal-section-label { display: flex; align-items: center; gap: 6px; font: 500 11px/1 var(--font-sans); color: var(--muted); margin-bottom: var(--space-2); }
 .paypal-row { display: flex; align-items: center; gap: var(--space-2); }
-.paypal-logo { flex-shrink: 0; display: flex; align-items: center; }
 .paypal-input { flex: 1; }
 .paypal-save-btn { flex-shrink: 0; }
 .paypal-edit-btn {
@@ -757,34 +758,6 @@ table.ref-table tbody tr:hover { background: var(--bg); }
       </div>
     </div>
 
-    <!-- ── PAYOUT ACCOUNT ── -->
-    <div class="card">
-      <div class="card-header" style="margin-bottom:var(--space-4)">
-        <div class="card-title-row">
-          <div class="icon-well">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="3" fill="#57823C" opacity=".2"/><path d="M2 9h20" stroke="#57823C" stroke-width="1.8"/><path d="M6 14h4M15 14h3" stroke="#57823C" stroke-width="1.6" stroke-linecap="round"/></svg>
-          </div>
-          <span class="card-title">Payout Account</span>
-        </div>
-        <div class="card-subtitle">Where we send your balance when it reaches $50. Payouts go to PayPal.</div>
-      </div>
-      <div class="paypal-row" id="paypal-row">
-        <div class="paypal-logo">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7.5 21H4l1.5-9h5.5c2.5 0 4.5-1 4.5-3.5S13 3 10.5 3H5L3 15" stroke="#003087" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 21H6.5l1-6h5c2.5 0 4-1 4-3s-1.5-3-4-3H8L6.5 15" stroke="#009cde" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <input class="link-field paypal-input" id="paypal-email" type="email" placeholder="your@paypal.com" aria-label="PayPal email address">
-        <button class="btn-primary paypal-save-btn" id="paypal-save-btn" onclick="savePaypal()">Save</button>
-        <button class="paypal-edit-btn" id="paypal-edit-btn" style="display:none" onclick="editPaypal()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-          Edit
-        </button>
-      </div>
-      <div class="paypal-saved-note" id="paypal-saved-note" style="display:none">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Saved — payouts will be sent here when your balance hits $50.
-      </div>
-    </div>
-
     <!-- ── REFERRAL LINK ── -->
     <div class="card">
       <div class="card-header">
@@ -821,6 +794,24 @@ table.ref-table tbody tr:hover { background: var(--bg); }
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.22-1.57A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.21-1.25-6.22-3.48-8.52zM12 21.96a9.93 9.93 0 0 1-5.06-1.38l-.36-.22-3.73.94.99-3.62-.24-.38A9.94 9.94 0 0 1 2.04 12C2.04 6.49 6.49 2.04 12 2.04c2.67 0 5.18 1.04 7.07 2.93A9.94 9.94 0 0 1 21.96 12c0 5.51-4.45 9.96-9.96 9.96zm5.46-7.45c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.68-1.63-.93-2.23-.24-.59-.49-.51-.68-.52h-.58c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.08-.13-.27-.2-.57-.35z" fill="#25D366"/></svg>
           WhatsApp
         </button>
+      </div>
+      <div class="paypal-section">
+        <div class="paypal-section-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M7.5 21H4l1.5-9h5.5c2.5 0 4.5-1 4.5-3.5S13 3 10.5 3H5L3 15" stroke="#003087" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 21H6.5l1-6h5c2.5 0 4-1 4-3s-1.5-3-4-3H8L6.5 15" stroke="#009cde" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Payout via PayPal
+        </div>
+        <div class="paypal-row" id="paypal-row">
+          <input class="link-field paypal-input" id="paypal-email" type="email" placeholder="your@paypal.com" aria-label="PayPal email address">
+          <button class="btn-primary paypal-save-btn" id="paypal-save-btn" onclick="savePaypal()">Save</button>
+          <button class="paypal-edit-btn" id="paypal-edit-btn" style="display:none" onclick="editPaypal()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Edit
+          </button>
+        </div>
+        <div class="paypal-saved-note" id="paypal-saved-note" style="display:none">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Saved — payouts will be sent here when your balance hits $50.
+        </div>
       </div>
     </div>
 
