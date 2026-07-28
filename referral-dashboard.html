@@ -1117,9 +1117,10 @@ function renderRefs(refs) {
   shown.forEach(r => {
     const b = badgeMap[r.status] || badgeMap.completed;
     const p = PLAN[r.plan] || PLAN.monthly;
-    const isPending = r.status === 'trial' || r.status === 'cancelled';
-    const earnedHTML = isPending
-      ? `<span style="color:var(--warning);font:500 12px/1 var(--font-sans)">${p.reward} pending</span>`
+    const earnedHTML = r.status === 'trial'
+      ? `<span style="color:var(--warning);font:500 12px/1 var(--font-sans)">Pending</span>`
+      : r.status === 'cancelled'
+      ? `<span style="color:var(--muted);font:500 12px/1 var(--font-sans)">Not earned</span>`
       : `<strong style="color:var(--forest);font-size:14px">${p.reward}</strong>`;
     html += `<tr>
       <td><div class="ref-name">${r.name}</div></td>
