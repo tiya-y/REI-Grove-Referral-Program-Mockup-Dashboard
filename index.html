@@ -570,8 +570,8 @@ table.ref-table tbody tr:hover { background: var(--bg); }
   <span class="scenario-bar-label">Preview:</span>
   <button class="scenario-btn active" onclick="go('not-enrolled')">Not enrolled yet</button>
   <button class="scenario-btn" onclick="go('empty')">No referrals yet</button>
-  <button class="scenario-btn" onclick="go('in-trial')">1 referral in trial</button>
-  <button class="scenario-btn" onclick="go('one-monthly')">Trial done, +$5</button>
+  <button class="scenario-btn" onclick="go('in-trial')">1 referral pending</button>
+  <button class="scenario-btn" onclick="go('one-monthly')">First month paid, +$5</button>
   <button class="scenario-btn" onclick="go('one-annual')">Annual done, +$75</button>
   <button class="scenario-btn" onclick="go('mixed')">Multiple ($80, ready)</button>
 </div>
@@ -640,7 +640,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
           <div class="how-card">
             <div class="how-num">2</div>
             <div class="how-title">They join a paid plan</div>
-            <div class="how-desc">When your referral completes their <strong>$1 one-week trial</strong> and makes their first full payment, you earn a <strong>one-time reward</strong> — $5 if they chose monthly, $75 if they chose annual. That's it, one payment per referral.</div>
+            <div class="how-desc">When your referral pays for their first full month of the paid tier, you earn a <strong>one-time reward</strong> — $5 if they chose monthly, $75 if they chose annual. That's it, one payment per referral.</div>
           </div>
           <div class="how-card">
             <div class="how-num">3</div>
@@ -719,8 +719,8 @@ table.ref-table tbody tr:hover { background: var(--bg); }
         </div>
         <div id="faq-pre">
           <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">How do I get paid?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Payouts happen automatically on the 1st of each month when your balance is $50 or more. We'll send payment via your preferred method (Venmo, PayPal, or check) — no action needed on your end.</div></div>
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What counts as a qualifying referral?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Your referral qualifies only after they complete the $1 one-week trial and pay their first full subscription term — either $20/month or $200/year. Starting a trial alone does not earn you a reward. The reward is credited at the moment they make that first full payment.</div></div>
-          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if my referral cancels during or after the trial?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">If they cancel during or at the end of the $1 trial without paying a full subscription term, no reward is earned. Your referral must complete the trial and pay their first full term ($20/month or $200/year) before any reward is credited to your account.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What counts as a qualifying referral?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Your referral qualifies when they pay for their first full month of a paid REI Grove+ plan through your link — either $20/month or $200/year. The reward is credited at the moment that first full payment is made.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">What if my referral cancels before paying for a full month?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">If they cancel without completing their first full month payment, no reward is earned. Your referral must pay for their first full month ($20/month or $200/year) before any reward is credited to your account.</div></div>
           <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Can I refer someone already using REI Grove for free?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">Yes. If they're already on the free plan and upgrade to a paid plan through your link, that counts as a qualifying referral.</div></div>
           <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Is there a limit to how many people I can refer?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No limit. Every qualifying paid signup earns you a reward — refer as many people as you'd like.</div></div>
           <div class="faq-item"><button class="faq-q" onclick="faqToggle(this)">Does my balance expire?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><div class="faq-a">No. Your balance builds up indefinitely — no expiration date. Once it hits $50, it will be paid out automatically on the 1st of the following month.</div></div>
@@ -767,7 +767,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
           </div>
           <span class="card-title">Your Referral Link</span>
         </div>
-        <div class="card-subtitle">Earn $5 (monthly) or $75 (annual) once your referral completes their trial and pays their first full term. Payouts are automatic on the 1st of each month.</div>
+        <div class="card-subtitle">Earn $5 (monthly) or $75 (annual) once your referral pays for their first full month of the paid tier. Payouts are automatic on the 1st of each month.</div>
       </div>
       <div class="link-row">
         <input class="link-field" id="ref-url" type="text" value="reigrove.com/ref/jordan123" readonly aria-label="Your unique referral link">
@@ -848,7 +848,7 @@ table.ref-table tbody tr:hover { background: var(--bg); }
         </div>
         <div class="filter-chips" id="filter-chips">
           <button class="chip active" data-f="all" onclick="filter(this,'all')">All</button>
-          <button class="chip" data-f="trial" onclick="filter(this,'trial')">In Trial</button>
+          <button class="chip" data-f="trial" onclick="filter(this,'trial')">Pending</button>
           <button class="chip" data-f="completed" onclick="filter(this,'completed')">Completed</button>
           <button class="chip" data-f="cancelled" onclick="filter(this,'cancelled')">Cancelled</button>
         </div>
@@ -954,7 +954,7 @@ const S = {
     clicks:8, totalEarned:'$0', paidOut:'$0',
     refs:[{name:'Marcus T.',date:'Apr 18, 2026',plan:'monthly',status:'trial'}],
     notifs:[
-      {type:'info', text:'Marcus T. joined using your link and started their $1 trial.'}
+      {type:'info', text:'Marcus T. joined using your link and is pending their first full month payment.'}
     ]
   },
   'one-monthly': {
@@ -963,7 +963,7 @@ const S = {
     clicks:12, totalEarned:'$5', paidOut:'$0',
     refs:[{name:'Marcus T.',date:'Apr 18, 2026',plan:'monthly',status:'completed'}],
     notifs:[
-      {type:'success', text:'Marcus T. completed their trial and paid their first month — you earned $5!'}
+      {type:'success', text:'Marcus T. paid their first full month — you earned $5!'}
     ]
   },
   'one-annual': {
@@ -972,7 +972,7 @@ const S = {
     clicks:24, totalEarned:'$75', paidOut:'$0',
     refs:[{name:'Alicia M.',date:'Mar 1, 2026',plan:'annual',status:'completed'}],
     notifs:[
-      {type:'success', text:'Alicia M. completed their trial and paid for the annual plan — you earned $75!'}
+      {type:'success', text:'Alicia M. paid for the annual plan — you earned $75!'}
     ]
   },
   mixed: {
@@ -986,10 +986,10 @@ const S = {
       {name:'Devon K.',date:'May 10, 2026',plan:'monthly',status:'trial'}
     ],
     notifs:[
-      {type:'success', text:'Alicia M. completed their trial and paid for the annual plan — you earned $75!'},
-      {type:'success', text:'Marcus T. completed their trial and paid their first month — you earned $5!'},
+      {type:'success', text:'Alicia M. paid for the annual plan — you earned $75!'},
+      {type:'success', text:'Marcus T. paid their first full month — you earned $5!'},
       {type:'error',   text:'Priya S. cancelled before paying — no reward earned.'},
-      {type:'info',    text:'Devon K. joined using your link and started their $1 trial.'}
+      {type:'info',    text:'Devon K. joined using your link and is pending their first full month payment.'}
     ]
   }
 };
